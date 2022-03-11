@@ -160,8 +160,7 @@ class ReadData():
                         cities.append(np.array(tempcity))
 
 
-        with open(sys.argv[2], "w") as tyskie:
-            tyskie.write(str(cities))
+
         return np.array(cities)
 
     def GetDistanceMat(self):
