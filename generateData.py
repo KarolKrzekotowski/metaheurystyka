@@ -23,6 +23,9 @@ class generateData():
         if self.option == "EUC_2D":
             self.genEuc2d()
             self.genFileEuc2d()
+        elif self.option == "LOWER_DIAG_ROW":
+            self.genLower()
+            self.genFileLower()
 
     def genEuc2d(self):
         random.seed(self.seed)
@@ -66,6 +69,13 @@ class generateData():
         with open(f'TSP_Data/random_instance_file.tsp', 'w') as data:
             data.write(info + info2 + "EOF\n")
         data.close()
+
+    def genLower(self):
+        pass
+
+
+    def genFileLower(self):
+        pass
 
 
 generateData(int(sys.argv[1]), int(sys.argv[2]), sys.argv[3], int(sys.argv[4]), int(sys.argv[5]))

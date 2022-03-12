@@ -212,7 +212,10 @@ class ReadData():
                             break
                         if it == 0:
                             cities.append(templist)
+                            print(templist)
                             templist = []
+
+
                 DistanceMat = np.zeros((self.size, self.size))
                 for i in range(self.size):
                     temp = []
