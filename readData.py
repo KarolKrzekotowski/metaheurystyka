@@ -148,14 +148,15 @@ class ReadData():
                         break
                 if len(tempcity) > 0:
 
+                    if self.sufix == ".atsp":
 
-                    line = data.readline().split()
-                    for i, elem in enumerate(line):
-                        try:
-                            temp = float(elem)
-                            tempcity.append(temp)
-                        except ValueError:
-                            break
+                        line = data.readline().split()
+                        for i, elem in enumerate(line):
+                            try:
+                                temp = float(elem)
+                                tempcity.append(temp)
+                            except ValueError:
+                                break
                     if len(tempcity) > 0:
                         cities.append(np.array(tempcity))
 
@@ -178,6 +179,7 @@ class ReadData():
 
     def EuclidDist(self):
         cities = self.read_Data()
+        print(cities)
         # DistanceDict = {}
         A = cities[:, 1:3]
         DistanceMat = np.round(squareform(pdist(A)))
