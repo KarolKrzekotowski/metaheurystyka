@@ -160,7 +160,7 @@ class ReadData():
                     if len(tempcity) > 0:
                         cities.append(np.array(tempcity))
 
-
+        print(cities)
 
         return np.array(cities)
 
@@ -179,7 +179,7 @@ class ReadData():
 
     def EuclidDist(self):
         cities = self.read_Data()
-        print(cities)
+
         # DistanceDict = {}
         A = cities[:, 1:3]
         DistanceMat = np.round(squareform(pdist(A)))
@@ -191,7 +191,7 @@ class ReadData():
         if DataFormat == "FULL_MATRIX":
             cities = self.read_Data()
             DistanceMat = cities[:self.size]
-            print("ez")
+
             return DistanceMat
 
         elif DataFormat == "LOWER_DIAG_ROW":
@@ -212,7 +212,7 @@ class ReadData():
                             break
                         if it == 0:
                             cities.append(templist)
-                            print(templist)
+
                             templist = []
 
 

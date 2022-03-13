@@ -8,16 +8,12 @@ from readData import ReadData
 
 class testczytania():
 
-
     def __init__(self, file):
 
         self.file = file
         self.instance = ReadData(self.file)
         self.size = self.instance.size
         self.dis_mat = self.instance.GetDistanceMat()
-
-
-
 
     def _write_info(self):
         """
