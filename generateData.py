@@ -20,7 +20,7 @@ class generateData():
         self.max = maximum
         self.xlist = []
         self.ylist = []
-        self.inf = False
+
         self.genEuc2d()
         if self.option == "EUC_2D":
             self.genFileEuc2d()
@@ -28,7 +28,6 @@ class generateData():
             self.Distance = self.genDistance()
             self.genFileLower()
         elif self.option == "FULL_MATRIX":
-            self.inf = True
             self.Distance = self.genDistance()
             self.genFileMatrix()
 
