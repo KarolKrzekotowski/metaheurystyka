@@ -9,7 +9,6 @@ np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 
 class ReadData():
     def __init__(self, filename):
-        self.atsp = False
         self.sufix = ".tsp"
         self.filename = filename
         self.name = filename[:-4]
@@ -19,10 +18,15 @@ class ReadData():
         self.time_to_read = 0
 
 
+
     def getFormat(self):
+        """
+
+        :return: format of matrix or None(if it isn't matrix)
+        """
         format = "None"
         try:
-            with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+            with open(f'{self.name}{self.sufix}') as data:
                 datalist = data.read().split()
                 for ind, elem in enumerate(datalist):
                     if elem == "EDGE_WEIGHT_FORMAT:":
@@ -36,7 +40,7 @@ class ReadData():
         except :
             try:
                 self.name = self.filename[:-5]
-                with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+                with open(f'{self.name}{self.sufix}') as data:
 
                     datalist = data.read().split()
                     for ind, elem in enumerate(datalist):
@@ -52,10 +56,17 @@ class ReadData():
                 print("wrong input data")
                 sys.exit(1)
 
+
+
     def getEdgeWeightType(self):
+        """
+            return type of data(EUC_2d or EXPLICIT)
+
+        """
+
         EdgeType = "None"
         try:
-            with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+            with open(f'{self.name}{self.sufix}') as data:
                 datalist = data.read().split()
                 for ind, elem in enumerate(datalist):
                     if elem == "EDGE_WEIGHT_TYPE:":
@@ -70,7 +81,7 @@ class ReadData():
         except:
             try:
                 self.name = self.filename[:-5]
-                with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+                with open(f'{self.name}{self.sufix}') as data:
                     datalist = data.read().split()
                     for ind, elem in enumerate(datalist):
                         if elem == "EDGE_WEIGHT_TYPE:":
@@ -97,7 +108,7 @@ class ReadData():
         size = 0
         try:
 
-            with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+            with open(f'{self.name}{self.sufix}') as data:
                 datalist = data.read().split()
                 for ind, elem in enumerate(datalist):
                     if elem == "DIMENSION:":
@@ -113,7 +124,7 @@ class ReadData():
             try:
                 self.name = self.filename[:-5]
                 self.sufix =".atsp"
-                with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+                with open(f'{self.name}{self.sufix}') as data:
 
                     datalist = data.read().split()
 
@@ -132,7 +143,11 @@ class ReadData():
 
 
     def read_Data(self):
-        with open(f'TSP_Data/{self.name}{self.sufix}') as data:
+        """
+
+        :return: list of cities  [city, x, y]
+        """
+        with open(f'{self.name}{self.sufix}') as data:
             cities = []
             Isdata = True
             while (Isdata):
@@ -160,11 +175,15 @@ class ReadData():
                     if len(tempcity) > 0:
                         cities.append(np.array(tempcity,dtype=int))
 
-        #print(cities)
+
 
         return np.array(cities)
 
     def GetDistanceMat(self):
+        """
+
+        :return:  list of vectors with distances to other cities
+        """
         if self.EdgeWeightType == "EXPLICIT":
             DistanceMat = self.getMat()
             self.time_to_read = time.time() - start_time
@@ -178,24 +197,38 @@ class ReadData():
             return None
 
     def EuclidDist(self):
-        cities = self.read_Data()
+        """
 
+        :return: list of vectors with distances to other cities (function for Euclides data type)
+        """
+        cities = self.read_Data()
         # DistanceDict = {}
         A = cities[:, 1:3]
         DistanceMat = np.round(squareform(pdist(A)))
+        print(DistanceMat)
+        print("kurwa2")
         return DistanceMat.astype(int)
 
 
     def getMat(self):
+        """
+
+        :return: list of vectors with distances to other cities (function for matrix data type)
+        """
         DataFormat = self.getFormat()
         if DataFormat == "FULL_MATRIX":
             cities = self.read_Data()
+
             DistanceMat = cities[:self.size]
+
+            # print(DistanceMat[0])
+            # print(type(DistanceMat[0][0]))
 
             return DistanceMat
 
         elif DataFormat == "LOWER_DIAG_ROW":
-            with open(f'TSP_Data/{self.name}{self.sufix}') as file:
+
+            with open(f'{self.name}{self.sufix}') as file:
                 indicator = False
                 data = file.read().split()
                 templist = []
@@ -226,6 +259,7 @@ class ReadData():
                         else:
                             temp.append(cities[j][i])
                     DistanceMat[i] = temp
+
                 return DistanceMat.astype(int)
 
         else:

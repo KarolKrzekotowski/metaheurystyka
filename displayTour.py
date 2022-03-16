@@ -35,6 +35,7 @@ def printPath(mat,path):
     for i in range(0,l-1):
         print(path[i],"\t--[",mat[path[i]-1][path[i+1]-1],"]->\t",path[i+1])
 
+
 #funkcja tworzy graf dla podanej instancji i ścieżki (instancja musi być typu EUC_2D)
 def EUCgraph(instance,path):
 
