@@ -1,5 +1,11 @@
 import matplotlib.pyplot as plt
 
+#wyświetl macierz w podany sposób
+def matPrint(mat):
+    for i in range(0,len(mat)):
+        print(f"[{i}]", end="\t")
+        print(*mat[i], sep="\t")
+
 #funkcja zwraca ścieżkę z podanego pliku .opt.tour
 def loadPath(filedir):
     try:
@@ -27,7 +33,7 @@ def loadPath(filedir):
 def printPath(mat,path):
     l = len(path)
     for i in range(0,l-1):
-        print(path[i]," -[",mat[path[i]-1][path[i+1]-1],"]> ",path[i+1])
+        print(path[i],"\t--[",mat[path[i]-1][path[i+1]-1],"]->\t",path[i+1])
 
 #funkcja tworzy graf dla podanej instancji i ścieżki (instancja musi być typu EUC_2D)
 def EUCgraph(instance,path):

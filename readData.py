@@ -160,7 +160,7 @@ class ReadData():
                     if len(tempcity) > 0:
                         cities.append(np.array(tempcity,dtype=int))
 
-        print(cities)
+        #print(cities)
 
         return np.array(cities)
 
@@ -183,7 +183,7 @@ class ReadData():
         # DistanceDict = {}
         A = cities[:, 1:3]
         DistanceMat = np.round(squareform(pdist(A)))
-        return DistanceMat
+        return DistanceMat.astype(int)
 
 
     def getMat(self):
@@ -226,7 +226,7 @@ class ReadData():
                         else:
                             temp.append(cities[j][i])
                     DistanceMat[i] = temp
-                return DistanceMat
+                return DistanceMat.astype(int)
 
         else:
             sys.exit("No Format Match for EXPLICIT data")

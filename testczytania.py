@@ -23,7 +23,8 @@ class testczytania():
         print("Instance name:", self.instance.name)
         print("Dimention:", self.size)
         print("Distance Type:", self.instance.EdgeWeightType)
-        print(self.dis_mat,"dismat")
+        #print(self.dis_mat,"dismat")
+        displayTour.matPrint(self.dis_mat)
 
         #test cykli
         bestpath = displayTour.loadPath(f'TSP_Data/{self.instance.name}.opt.tour')
