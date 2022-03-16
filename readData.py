@@ -158,7 +158,7 @@ class ReadData():
                             except ValueError:
                                 break
                     if len(tempcity) > 0:
-                        cities.append(np.array(tempcity))
+                        cities.append(np.array(tempcity,dtype=int))
 
         print(cities)
 

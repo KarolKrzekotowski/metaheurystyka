@@ -1,10 +1,11 @@
+import imp
 import time
 
 start_time = time.time()
 import sys
 from readData import ReadData
-
-
+import displayTour
+import calcTour
 
 class testczytania():
 
@@ -24,6 +25,13 @@ class testczytania():
         print("Distance Type:", self.instance.EdgeWeightType)
         print(self.dis_mat,"dismat")
 
+        #test cykli
+        bestpath = displayTour.loadPath(f'TSP_Data/{self.instance.name}.opt.tour')
+
+        if bestpath != None:
+            displayTour.printPath(self.dis_mat,bestpath)
+            print("rozwiązanie: ",calcTour.fc(self.dis_mat,bestpath))
+            displayTour.EUCgraph(self.instance,bestpath)
 
 if len(sys.argv) < 2:
     print("need inpute file")
