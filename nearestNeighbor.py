@@ -1,6 +1,5 @@
 import time
 import copy
-import numpy
 import numpy as np
 
 start_time = time.time()
