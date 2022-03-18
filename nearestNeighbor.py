@@ -11,6 +11,7 @@ import displayTour
 import calcTour
 import random
 
+
 class nearestNeighbor():
 
     def __init__(self, file):
@@ -19,6 +20,7 @@ class nearestNeighbor():
         self.instance = ReadData(self.file)
         self.size = self.instance.size
         self.dis_mat = self.instance.GetDistanceMat()
+        self.path =[]
 
     def _write_info(self):
         """
@@ -61,14 +63,15 @@ class nearestNeighbor():
 
             path_index.append( np.argmin(changed_path[last_element]))
             distance += self.dis_mat[last_element][path_index[-1]]
-            print(distance)
+
             i += 1
 
         print("lista", path_index)
-        path_index.sort()
-        print(path_index)
+
         print(distance,"distance")
-        print(changed_path,"duże")
+        self.path = path_index
+
+
 
 
 
@@ -78,4 +81,7 @@ if len(sys.argv) < 2:
 t = nearestNeighbor(sys.argv[1])
 t._write_info()
 t.run()
+t.write_results()
+# displayTour.printPath(self.dis_mat, path_index)
+# print("rozwiązanie: ", calcTour.fc(self.dis_mat, path_index))
 
