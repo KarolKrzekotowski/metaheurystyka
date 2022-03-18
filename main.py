@@ -1,3 +1,5 @@
+import random
+
 import generateData
 import nearestNeigbor2
 import nearestNeighbour
@@ -15,6 +17,7 @@ def write_info():
 
 def write_results():
     # ścieżka
+    print(path)
     displayTour.printPath(dis_mat, path)
     # dystans
     print("rozwiązanie: ", calcTour.fc(dis_mat, path))
@@ -43,7 +46,7 @@ if len(sys.argv) == 1:
     while True:
         alg = input("NN, k-NN, k-random, 2opt, or anything else to quit ")
         if alg == "NN":
-            path = nearestNeighbour.run(size, dis_mat)
+            path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
             print(path)
         elif alg == "k-NN":
             path = nearestNeigbor2.run(size, dis_mat)
@@ -64,7 +67,7 @@ elif len(sys.argv) == 2:
     while True:
         alg = input("NN, k-NN, k-random, 2opt, or anything else to quit ")
         if alg == "NN":
-            path = nearestNeighbour.run(size, dis_mat)
+            path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
         elif alg == "k-NN":
             path = nearestNeigbor2.run(size, dis_mat)
 
