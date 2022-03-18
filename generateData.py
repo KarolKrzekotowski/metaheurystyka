@@ -31,6 +31,7 @@ class generateData():
             self.Distance = self.genDistance()
             self.genFileMatrix()
 
+
     def genEuc2d(self):
         random.seed(self.seed)
         list1 = []
@@ -129,19 +130,10 @@ class generateData():
                'EDGE_WEIGHT_SECTION\n' + str(matrix)
 
 
-
-
-        # DIMENSION: 17
-        # EDGE_WEIGHT_TYPE: EXPLICIT
-        # EDGE_WEIGHT_FORMAT: FULL_MATRIX
-        # EDGE_WEIGHT_SECTION
-
         with open(f'TSP_Data/random_instance_file.atsp', 'w') as data:
             data.write(info + "EOF\n")
         data.close()
 
-
-generateData(int(sys.argv[1]), int(sys.argv[2]), sys.argv[3], int(sys.argv[4]), int(sys.argv[5]))
 
 
 

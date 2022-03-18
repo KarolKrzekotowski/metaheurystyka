@@ -11,7 +11,7 @@ import calcTour
 
 
 
-class nearestNeighbor2():
+class nearestNeigbor2():
 
     def __init__(self, file):
 
@@ -24,7 +24,7 @@ class nearestNeighbor2():
         self.cities = []
         self.best_distance = 99999999
 
-    def _write_info(self):
+    def write_info(self):
         """
         write info about instance
         """
@@ -88,15 +88,7 @@ class nearestNeighbor2():
 
         displayTour.printPath(self.dis_mat,self.cities)
         print("rozwiązanie: ", calcTour.fc(self.dis_mat, self.cities))
-        displayTour.EUCgraph(self.instance, self.cities)
-
-
-if len(sys.argv) < 2:
-    print("need inpute file")
-    sys.exit(1)
-t = nearestNeighbor2(sys.argv[1])
-t._write_info()
-t.run()
-t.write_results()
+        if self.instance.getEdgeWeightType() == "EUC_2D":
+            displayTour.EUCgraph(self.instance, self.path)
 
 

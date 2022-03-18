@@ -35,8 +35,8 @@ class testczytania():
             print("rozwiązanie: ",calcTour.fc(self.dis_mat,bestpath))
             displayTour.EUCgraph(self.instance,bestpath)
 
-if len(sys.argv) < 2:
-    print("need inpute file")
-    sys.exit(1)
-t = testczytania(sys.argv[1])
-t._write_info()
+# if len(sys.argv) < 2:
+#     print("need inpute file")
+#     sys.exit(1)
+# t = testczytania(sys.argv[1])
+# t._write_info()
