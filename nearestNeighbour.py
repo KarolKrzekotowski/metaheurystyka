@@ -1,9 +1,6 @@
 import time
 import copy
 import numpy as np
-from readData import ReadData
-import displayTour
-import calcTour
 import random
 start_time = time.time()
 

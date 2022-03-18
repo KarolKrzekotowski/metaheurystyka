@@ -2,9 +2,8 @@ import random
 from xmlrpc.client import MAXINT
 import calcTour
 
-def krandom(instance,k):
-    mat = instance.GetDistanceMat()
-    size = instance.size
+def krandom(size,mat,k):
+
 
     min = MAXINT
     minlist = list()

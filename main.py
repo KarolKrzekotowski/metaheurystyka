@@ -1,7 +1,7 @@
 import generateData
 import nearestNeigbor2
 import nearestNeighbour
-from nearestNeighbour import *
+import displayTour
 from nearestNeigbor2 import *
 from krandom import *
 import sys
@@ -48,7 +48,8 @@ if len(sys.argv) == 1:
         elif alg == "k-NN":
             path = nearestNeigbor2.run(size, dis_mat)
         elif alg == "k-random":
-            pass
+            k = input('k:')
+            path = krandom(size, dis_mat, int(k))
         elif alg == "2opt":
             pass
         else:
@@ -68,7 +69,8 @@ elif len(sys.argv) == 2:
             path = nearestNeigbor2.run(size, dis_mat)
 
         elif alg == "k-random":
-            pass
+            k = input('k:' )
+            path = krandom(size, dis_mat, int(k))
         elif alg == "2opt":
             pass
         else:
