@@ -20,26 +20,22 @@ class nearestNeighbor():
         self.instance = ReadData(self.file)
         self.size = self.instance.size
         self.dis_mat = self.instance.GetDistanceMat()
+        self.changed_path = self.instance.GetDistanceMat()
         self.path =[]
+        self.cities = []
 
     def _write_info(self):
         """
         write info about instance
         """
-        print("Instance name:", self.instance.name)
-        print("Dimention:", self.size)
-        print("Distance Type:", self.instance.EdgeWeightType)
-        print(self.dis_mat)
+        # print("Instance name:", self.instance.name)
+        # print("Dimention:", self.size)
+        # print("Distance Type:", self.instance.EdgeWeightType)
+        # print(self.dis_mat)
 
         # displayTour.matPrint(self.dis_mat)
         #
-        # #test cykli
-        # bestpath = displayTour.loadPath(f'{self.instance.name}.opt.tour')
-        #
-        # if bestpath != None:
-        #     displayTour.printPath(self.dis_mat,bestpath)
-        #     print("rozwiązanie: ",calcTour.fc(self.dis_mat,bestpath))
-        #     displayTour.EUCgraph(self.instance,bestpath)
+
 
     def run(self):
         start_point = random.randint(1, self.size)
@@ -47,14 +43,22 @@ class nearestNeighbor():
 
         path_index = list()
         path_index.append(start_point)
+        changed_path = self.changed_path
         for i in range(self.size):
-            self.dis_mat[i][i] = 999999999
-        changed_path = self.dis_mat
+            changed_path[i][i] = 999999999
 
-        path_index.append( np.argmin(self.dis_mat[start_point-1]))
-        print(self.dis_mat[start_point - 1][path_index[1]],'hello')
+
+        path_index.append( np.argmin(changed_path[start_point-1]))
+        for i in range(self.size):
+            changed_path[i][start_point-1]
+
+
         distance = self.dis_mat[start_point-1][path_index[1]]
         i=1
+        self.cities.append(start_point)
+        self.cities.append(np.argmin(changed_path[start_point-1])+1)
+
+
         while i != self.size:
             last_element = path_index[-1]
             #zmiana ostatnio użytego elementu na maksymalny, żeby nie został użyty
@@ -62,8 +66,10 @@ class nearestNeighbor():
                 j[last_element] = 999999999
 
             path_index.append( np.argmin(changed_path[last_element]))
+
             distance += self.dis_mat[last_element][path_index[-1]]
 
+            self.cities.append(np.argmin(changed_path[last_element])+1)
             i += 1
 
         print("lista", path_index)
@@ -72,6 +78,15 @@ class nearestNeighbor():
         self.path = path_index
 
 
+    def write_results(self):
+
+        displayTour.printPath(self.dis_mat,self.cities)
+        # print(self.path)
+
+
+        print("rozwiązanie: ", calcTour.fc(self.dis_mat, self.cities))
+        print(self.cities)
+        displayTour.EUCgraph(self.instance, self.path)
 
 
 
@@ -82,6 +97,5 @@ t = nearestNeighbor(sys.argv[1])
 t._write_info()
 t.run()
 t.write_results()
-# displayTour.printPath(self.dis_mat, path_index)
-# print("rozwiązanie: ", calcTour.fc(self.dis_mat, path_index))
+
 
