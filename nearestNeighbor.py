@@ -1,6 +1,5 @@
-import imp
 import time
-
+import copy
 import numpy
 import numpy as np
 
@@ -20,7 +19,7 @@ class nearestNeighbor():
         self.instance = ReadData(self.file)
         self.size = self.instance.size
         self.dis_mat = self.instance.GetDistanceMat()
-        self.changed_path = self.instance.GetDistanceMat()
+
         self.path =[]
         self.cities = []
 
@@ -28,35 +27,34 @@ class nearestNeighbor():
         """
         write info about instance
         """
-        # print("Instance name:", self.instance.name)
-        # print("Dimention:", self.size)
-        # print("Distance Type:", self.instance.EdgeWeightType)
-        # print(self.dis_mat)
+        print("Instance name:", self.instance.name)
+        print("Dimention:", self.size)
+        print("Distance Type:", self.instance.EdgeWeightType)
 
-        # displayTour.matPrint(self.dis_mat)
-        #
+
+        displayTour.matPrint(self.dis_mat)
+
 
 
     def run(self):
-        start_point = random.randint(1, self.size)
+        start_point = random.randint(0, self.size-1)
 
 
         path_index = list()
         path_index.append(start_point)
-        changed_path = self.changed_path
+        changed_path = copy.copy(self.dis_mat)
         for i in range(self.size):
             changed_path[i][i] = 999999999
 
 
-        path_index.append( np.argmin(changed_path[start_point-1]))
+        path_index.append( np.argmin(changed_path[start_point]))
         for i in range(self.size):
-            changed_path[i][start_point-1]
+            changed_path[i][start_point] = 999999999
 
 
-        distance = self.dis_mat[start_point-1][path_index[1]]
-        i=1
-        self.cities.append(start_point)
-        self.cities.append(np.argmin(changed_path[start_point-1])+1)
+        distance = self.dis_mat[start_point][path_index[1]]
+        i=2
+
 
 
         while i != self.size:
@@ -69,23 +67,26 @@ class nearestNeighbor():
 
             distance += self.dis_mat[last_element][path_index[-1]]
 
-            self.cities.append(np.argmin(changed_path[last_element])+1)
+
             i += 1
 
         print("lista", path_index)
+        path_index = [1+ x for x in path_index]
+        print(path_index)
 
+        print(path_index)
         print(distance,"distance")
         self.path = path_index
 
 
     def write_results(self):
 
-        displayTour.printPath(self.dis_mat,self.cities)
-        # print(self.path)
+        displayTour.printPath(self.dis_mat,self.path)
 
 
-        print("rozwiązanie: ", calcTour.fc(self.dis_mat, self.cities))
-        print(self.cities)
+        print(self)
+        print("rozwiązanie: ", calcTour.fc(self.dis_mat, self.path))
+
         displayTour.EUCgraph(self.instance, self.path)
 
 
