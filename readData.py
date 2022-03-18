@@ -205,8 +205,7 @@ class ReadData():
         # DistanceDict = {}
         A = cities[:, 1:3]
         DistanceMat = np.round(squareform(pdist(A)))
-        print(DistanceMat)
-        print("kurwa2")
+
         return DistanceMat.astype(int)
 
 
