@@ -12,7 +12,7 @@ class generateData():
     # wariant problemu
     # zakresie# wartości.
 
-    def __init__(self, dimension, seed, option, minimum, maximum):
+    def __init__(self, dimension, seed, option, minimum=10, maximum=100):
         self.dimension = dimension
         self.seed = seed
         self.option = option
@@ -21,14 +21,15 @@ class generateData():
         self.xlist = []
         self.ylist = []
 
-        self.genEuc2d()
         if self.option == "EUC_2D":
+            self.genEuc2d()
             self.genFileEuc2d()
         elif self.option == "LOWER_DIAG_ROW":
-            self.Distance = self.genDistance()
+            self.genAtspMatrix()
             self.genFileLower()
         elif self.option == "FULL_MATRIX":
-            self.Distance = self.genDistance()
+            self.genAtspMatrix()
+
             self.genFileMatrix()
 
 
@@ -57,6 +58,26 @@ class generateData():
             count = 0
         self.xlist = list1
         self.ylist = list2
+
+    def genAtspMatrix(self):
+        random.seed(self.seed)
+        loops = 0
+        loops2 = 0
+        list1 = []
+        list2 = []
+        while loops < self.dimension:
+            while loops2 < self.dimension:
+                x = random.randint(self.min, self.max)
+
+                list1.append(x)
+                loops2 += 1
+            loops2 = 0
+            list2.append(np.array(list1))
+            list2[loops][loops] = 0
+            loops += 1
+            list1 = []
+        self.Distance = list2
+
 
 
     def genFileEuc2d(self):
@@ -107,7 +128,7 @@ class generateData():
         return DistanceMat
 
     def genFileMatrix(self):
-        Distance = self.Distance.astype(float)
+        Distance = self.Distance
         print(Distance)
         matrix = ''
         val = float(0.0)
@@ -117,7 +138,7 @@ class generateData():
                 if j == 2 :
                     matrix += '\n'
                 if Distance[i][j].item() == val:
-                    Distance[i,j] = 99999
+                    Distance[i][j] = 99999
 
                 matrix += str(Distance[i][j])+ ' '
             matrix += '\n'
@@ -134,7 +155,7 @@ class generateData():
             data.write(info + "EOF\n")
         data.close()
 
-
+generateData(10, 8, "LOWER_DIAG_ROW", 20, 75)
 
 
 

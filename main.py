@@ -30,14 +30,33 @@ if len(sys.argv) == 1:
     print("generating file")
     dimension = input("dimension: ")
     seed = input("seed: ")
-    print("EUC_2D, LOWER_DIAG_ROW, FULL_MATRIX")
+    print("EUC_2D, LOWER_DIAG_ROW, FULL_MATRIX (atsp)")
     option = input("option: ")
-    minimum = input(" minimum: ")
-    maximum = input(" maximum: ")
     newFile = generateData
-    newFile.generateData(int(dimension), int(seed), option, int(minimum), int(maximum))
+    if option != "EUC_2D":
+        try :
+            minimum = int(input(" minimum distance: "))
+            maximum = int(input(" maximum distance: "))
+            newFile.generateData(int(dimension), int(seed), option, minimum, maximum)
+        except ValueError:
+            print("Wrong data, minimum and maximum will be default")
+            newFile.generateData(int(dimension), int(seed), option)
+    else:
+        try:
+            minimum = int(input(" minimum x & y range: "))
+            maximum = int(input(" maximum x & y range: "))
+            newFile.generateData(int(dimension), int(seed), option, minimum, maximum)
+        except ValueError:
+            print("Wrong data, minimum and maximum will be default")
+            newFile.generateData(int(dimension), int(seed), option)
 
-    file = 'TSP_Data/random_instance_file.tsp'
+
+
+
+    if option != "FULL_MATRIX":
+        file = 'TSP_Data/random_instance_file.tsp'
+    else:
+        file = 'TSP_Data/random_instance_file.atsp'
     instance = ReadData(file)
     size = instance.size
     dis_mat = instance.GetDistanceMat()
