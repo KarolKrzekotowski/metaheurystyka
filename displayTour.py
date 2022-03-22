@@ -1,5 +1,10 @@
 import matplotlib.pyplot as plt
 
+#kolor punktów na grafie
+PTScolor = "gold"
+#kolor linii na grafie
+LINEcolor = "dimgrey"
+
 #wyświetl macierz w podany sposób
 def matPrint(mat):
     for i in range(0,len(mat)):
@@ -34,6 +39,7 @@ def printPath(mat,path):
     l = len(path)
     for i in range(0,l-1):
         print(path[i],"\t--[",mat[path[i]-1][path[i+1]-1],"]->\t",path[i+1])
+    print(path[l-1],"\t--[",mat[path[l-1]-1][path[0]-1],"]->\t",path[0])
 
 
 #funkcja tworzy graf dla podanej instancji i ścieżki (instancja musi być typu EUC_2D)
@@ -52,15 +58,19 @@ def EUCgraph(instance,path):
         xpts.append(x)
         ypts.append(y)
     
-    plt.scatter(xpts,ypts, color="blue")
+    l = len(path)
+    #rysuj ścieżki
+    for i in range(0,l-1):
+        xc = [xpts[path[i]-1],xpts[path[i+1]-1]]
+        yc = [ypts[path[i]-1],ypts[path[i+1]-1]]
+        plt.plot(xc,yc,color=LINEcolor)
+    xc = [xpts[path[l-1]-1],xpts[path[0]-1]]
+    yc = [ypts[path[l-1]-1],ypts[path[0]-1]]
+    plt.plot(xc,yc,color=LINEcolor)
+
+    plt.scatter(xpts,ypts, color=PTScolor)
 
     for i,x,y in points:
         plt.annotate(i,(x,y))
-    
-    #rysuj ścieżki
-    for i in range(0,len(path)-1):
-        xc = [xpts[path[i]-1],xpts[path[i+1]-1]]
-        yc = [ypts[path[i]-1],ypts[path[i+1]-1]]
-        plt.plot(xc,yc,color="red")
 
     plt.show()

@@ -4,6 +4,7 @@ import generateData
 import nearestNeigbor2
 import nearestNeighbour
 import displayTour
+import Opt2
 from nearestNeigbor2 import *
 from krandom import *
 import sys
@@ -25,7 +26,6 @@ def write_results():
     if instance.getEdgeWeightType() == "EUC_2D":
         displayTour.EUCgraph(instance, path)
 
-
 if len(sys.argv) == 1:
     print("generating file")
     dimension = input("dimension: ")
@@ -44,17 +44,24 @@ if len(sys.argv) == 1:
     write_info()
     print(dis_mat)
     while True:
-        alg = input("NN, k-NN, k-random, 2opt, or anything else to quit ")
+        alg = input("NN, k-NN, k-random, 2opt-NN, 2opt-rand, 2opt-kNN, or anything else to quit ")
         if alg == "NN":
             path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
-            print(path)
         elif alg == "k-NN":
             path = nearestNeigbor2.run(size, dis_mat)
         elif alg == "k-random":
             k = input('k:')
             path = krandom(size, dis_mat, int(k))
-        elif alg == "2opt":
-            pass
+        elif alg == "2opt-NN":
+            path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
+            path = Opt2.Opt2(instance,path)
+        elif alg == "2opt-rand":
+            k = input('k:')
+            path = krandom(size, dis_mat, int(k))
+            path = Opt2.Opt2(instance,path)
+        elif alg == "2opt-kNN":
+            path = nearestNeigbor2.run(size, dis_mat)
+            path = Opt2.Opt2(instance,path)
         else:
             sys.exit(1)
         write_results()
@@ -65,17 +72,24 @@ elif len(sys.argv) == 2:
     dis_mat = instance.GetDistanceMat()
     write_info()
     while True:
-        alg = input("NN, k-NN, k-random, 2opt, or anything else to quit ")
+        alg = input("NN, k-NN, k-random, 2opt-NN, 2opt-rand, 2opt-kNN, or anything else to quit ")
         if alg == "NN":
             path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
         elif alg == "k-NN":
             path = nearestNeigbor2.run(size, dis_mat)
-
         elif alg == "k-random":
             k = input('k:' )
             path = krandom(size, dis_mat, int(k))
-        elif alg == "2opt":
-            pass
+        elif alg == "2opt-NN":
+            path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
+            path = Opt2.Opt2(instance,path)
+        elif alg == "2opt-rand":
+            k = input('k:')
+            path = krandom(size, dis_mat, int(k))
+            path = Opt2.Opt2(instance,path)
+        elif alg == "2opt-kNN":
+            path = nearestNeigbor2.run(size, dis_mat)
+            path = Opt2.Opt2(instance,path)
         else:
             sys.exit(1)
         write_results()
