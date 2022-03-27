@@ -129,7 +129,7 @@ class generateData():
 
     def genFileMatrix(self):
         Distance = self.Distance
-        print(Distance)
+
         matrix = ''
         val = float(0.0)
 

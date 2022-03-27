@@ -9,7 +9,7 @@ from readData import ReadData
 start_time = time.time()
 
 
-def run(size, dis_mat, k=10):
+def run(size, dis_mat, k=100):
     """
     :parameter size - size of matrix
     :parameter dis_mat - matrix
@@ -22,14 +22,16 @@ def run(size, dis_mat, k=10):
     :return: path
     """
     starting_numbers = []
-    best_distance = 99999999
+    best_distance = 9999999999
+    # print(dis_mat)
     for _ in range(0, k):
         x = random.randint(0, size - 1)
         if x not in starting_numbers:
             starting_numbers.append(x)
     for start in starting_numbers:
+        dis_matrix = copy.deepcopy(dis_mat)
 
-        path, distance = nearestNeighbour.run(size,dis_mat,start)
+        path, distance = nearestNeighbour.run(size,dis_matrix,start)
 
         if distance < best_distance:
             best_distance = distance
