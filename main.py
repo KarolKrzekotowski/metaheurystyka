@@ -10,10 +10,12 @@ from krandom import *
 import sys
 
 
-def write_info():
+def write_info(dis_mat):
     print("Instance name:", instance.name)
     print("Dimention:", instance.size)
     print("Distance Type:", instance.EdgeWeightType)
+    print(displayTour.matPrint(dis_mat))
+
 
 
 def write_results():
@@ -55,13 +57,19 @@ if len(sys.argv) == 1:
 
     if option != "FULL_MATRIX":
         file = 'TSP_Data/random_instance_file.tsp'
+        instance = ReadData(file)
+        size = instance.size
+        dis_mat = instance.GetDistanceMat()
     else:
         file = 'TSP_Data/random_instance_file.atsp'
-    instance = ReadData(file)
-    size = instance.size
-    dis_mat = instance.GetDistanceMat()
-    write_info()
-    print(dis_mat)
+        instance = ReadData(file,True)
+        size = instance.size
+        dis_mat = instance.dis_mat
+
+
+
+    write_info(dis_mat)
+
     while True:
         alg = input("NN, k-NN, k-random, 2opt-NN, 2opt-rand, 2opt-kNN, or anything else to quit ")
         if alg == "NN":
@@ -86,16 +94,26 @@ if len(sys.argv) == 1:
         write_results()
 elif len(sys.argv) == 2:
     file = sys.argv[1]
-    instance = ReadData(file)
-    size = instance.size
-    dis_mat = instance.GetDistanceMat()
-    write_info()
+    if file[-4] == 'a':
+        instance = ReadData(file,True)
+        size = instance.size
+        dis_mat = instance.dis_mat
+    else:
+        instance = ReadData(file)
+        size = instance.size
+        dis_mat = instance.GetDistanceMat()
+
+    write_info(dis_mat)
     while True:
         alg = input("NN, k-NN, k-random, 2opt-NN, 2opt-rand, 2opt-kNN, or anything else to quit ")
         if alg == "NN":
             path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
         elif alg == "k-NN":
-            path = nearestNeigbor2.run(size, dis_mat)
+            try:
+                k = int(input("podaj k"))
+            except:
+                k = 100
+            path = nearestNeigbor2.run(size, dis_mat,k)
         elif alg == "k-random":
             k = input('k:' )
             path = krandom(size, dis_mat, int(k))
@@ -107,7 +125,11 @@ elif len(sys.argv) == 2:
             path = krandom(size, dis_mat, int(k))
             path = Opt2.Opt2(instance,path)
         elif alg == "2opt-kNN":
-            path = nearestNeigbor2.run(size, dis_mat)
+            try:
+                k = int(input("podaj k"))
+            except:
+                k = 100
+            path = nearestNeigbor2.run(size, dis_mat,k)
             path = Opt2.Opt2(instance,path)
         else:
             sys.exit(1)

@@ -2,7 +2,7 @@ import random
 from xmlrpc.client import MAXINT
 import calcTour
 
-def krandom(size,mat,k):
+def krandom(size,mat,k=10):
 
 
     min = MAXINT

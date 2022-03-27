@@ -1,6 +1,6 @@
 
 import time
-
+import tsplib95
 start_time = time.time()
 import sys
 from scipy.spatial.distance import pdist, squareform
@@ -8,16 +8,35 @@ import numpy as np
 np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 
 class ReadData():
-    def __init__(self, filename):
-        self.sufix = ".tsp"
-        self.filename = filename
-        self.name = filename[:-4]
-        self.size = self.getSize()
-        self.EdgeWeightType = self.getEdgeWeightType()
-        self.format_ = self.getFormat()  # for EXPLICIT data only
-        self.time_to_read = 0
+    def __init__(self, filename,matrixplik = False):
+        if  matrixplik == False:
+            self.sufix = ".tsp"
+            self.filename = filename
+            self.name = filename[:-4]
+            self.size = self.getSize()
+            self.EdgeWeightType = self.getEdgeWeightType()
+            self.format_ = self.getFormat()  # for EXPLICIT data only
+            self.time_to_read = 0
+        else:
+            problem = tsplib95.load(filename)
+            self.sufix = ".atsp"
+            self.filename = filename
+            self.EdgeWeightType = 'FULL_MATRIX'
+            self.name = filename[:-4]
+            self.dis_mat = self.getMatrix(problem)
+            self.size = self.getSize()
 
 
+    def getMatrix(self,problem):
+        dimension = len(list(problem.get_nodes()))
+        edges = list(problem.get_edges())
+
+        mat = [[None for _ in range(dimension)] for _ in range(dimension)]
+
+        for edge in edges:
+            mat[edge[0] - 1][edge[1] - 1] = problem.get_weight(*edge)
+
+        return mat
 
     def getFormat(self):
         """
