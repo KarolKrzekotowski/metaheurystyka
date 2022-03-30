@@ -69,7 +69,7 @@ if len(sys.argv) == 1:
 
 
     write_info(dis_mat)
-
+    print(instance.size)
     while True:
         alg = input("NN, k-NN, k-random, 2opt-NN, 2opt-rand, 2opt-kNN, or anything else to quit ")
         if alg == "NN":
@@ -81,6 +81,7 @@ if len(sys.argv) == 1:
             path = krandom(size, dis_mat, int(k))
         elif alg == "2opt-NN":
             path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
+            print(path)
             path = Opt2.Opt2(instance,path)
         elif alg == "2opt-rand":
             k = input('k:')

@@ -1,5 +1,5 @@
 import calcTour
-
+import copy
 #funkcja tworzy permutację ścieżki z inwersją od punktu a do b
 def invert(path,a,b):
     newpath = path.copy()
@@ -15,7 +15,8 @@ def invert(path,a,b):
 def Opt2(instance, path):
     #pobierz informacje
     size = instance.size
-    mat = instance.GetDistanceMat()
+    mat = copy.deepcopy(instance.dis_mat)
+
     #koszt optymalnej drogi dla wszystkich instancji
     bestfc = calcTour.fc(mat,path)
 
