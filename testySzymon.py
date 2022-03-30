@@ -1,5 +1,3 @@
-
-from gettext import dpgettext
 import random
 import sys
 import nearestNeighbour
@@ -18,12 +16,12 @@ def test4():
     #powtórzenia krandom dla danej macierzy
     repeats = 50
     #ilość macierzy dla danego rozmiaru
-    matrixrepeats = 20
+    matrixrepeats = 10
     option = "FULL_MATRIX"
     file = 'TSP_Data/random_instance_file.atsp'
     print("---- TEST 2OPT NN vs krandom init ----")
     #rozmiary grafów:
-    for dim in range(40,60,5):
+    for dim in range(20,70,10):
         print(f"---- Tests for dim={dim} -----")
         #uśrednione wyniki dla danej macierzy (1 z matrixrepeats)
         avgNNRes = []
@@ -60,8 +58,13 @@ def test4():
                 t2 = time.time()
                 KRRes2Opt.append(calcTour.fc(matrix,path))
                 KRTime2Opt.append(t2-t1)
+
+            krmin = min(KRRes2Opt)
+            nnmin = min(NNRes2Opt)
+            ref = min(krmin,nnmin)
             
-            ref = min(min(KRRes2Opt),min(NNRes2Opt))
+            print(f"[NN]: {nnmin}, [kr]: {krmin}")
+
             NNprd = 0.0
             KRprd = 0.0
             for j in range(0,size):
@@ -127,6 +130,6 @@ def test6():
             data.write(f"{str(dims[ඞ])};{str(dimPerMin[ඞ])};{str(dimPerMax[ඞ])}"+"\n")
 
         
-test6()
-#test4()
+#test6()
+test4()
 

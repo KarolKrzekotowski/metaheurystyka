@@ -15,7 +15,10 @@ def invert(path,a,b):
 def Opt2(instance, path):
     #pobierz informacje
     size = instance.size
-    mat = instance.GetDistanceMat()
+    if instance.EdgeWeightType == "FULL_MATRIX":
+        mat = instance.dis_mat
+    else: 
+        mat = instance.GetDistanceMat()
     #koszt optymalnej drogi dla wszystkich instancji
     bestfc = calcTour.fc(mat,path)
 
