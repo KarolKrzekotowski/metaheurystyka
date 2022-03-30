@@ -15,7 +15,10 @@ class ReadData():
             self.name = filename[:-4]
             self.size = self.getSize()
             self.EdgeWeightType = self.getEdgeWeightType()
-            self.format_ = self.getFormat()  # for EXPLICIT data only
+
+            self.format_ = self.getFormat() # for EXPLICIT data only
+            self.dis_mat = self.GetDistanceMat()
+
             self.time_to_read = 0
         else:
             problem = tsplib95.load(filename)
