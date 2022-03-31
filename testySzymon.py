@@ -7,6 +7,7 @@ import calcTour
 import time
 import generateData
 import readData
+from scipy.stats import wilcoxon
 import displayTour
 
 
@@ -129,7 +130,61 @@ def test6():
         for ඞ in range(len(dims)):
             data.write(f"{str(dims[ඞ])};{str(dimPerMin[ඞ])};{str(dimPerMax[ඞ])}"+"\n")
 
+def testWil():
+    minimum = 50
+    maximum = 200
+    #powtórzenia dla danej macierzy
+    repeats = 10
+    #ilość macierzy dla danego rozmiaru
+    matrixrepeats = 20
+    option = "EUC_2D"
+    file = 'TSP_Data/random_instance_file.tsp'
+    print("---- TEST Wilcoxon best case scenario ----")
+    NNRes = []
+    KRRes = []
+    #rozmiary grafów:
+    for dim in range(30,60,10):
+        print(f"---- Tests for dim={dim} -----")
+        #uśrednione wyniki dla danej macierzy (1 z matrixrepeats)
+        
+        for i in range(0,matrixrepeats):
+            print(f"- matrix {i+1}/{matrixrepeats} -")
+            #wygeneruj i załaduj instancję
+            generateData.generateData(dim,random.randint(0,sys.maxsize),option,minimum,maximum)
+            instance = readData.ReadData(file)
+            size = instance.size
+            matrix = instance.GetDistanceMat()
+
+            NNRes2Opt = []
+            #2OPT+NN dla każdego pkt początkowego
+            for pt in range(0,repeats):
+                path,_ = nearestNeighbour.run(size,matrix,random.randint(0,size-1))
+                path = Opt2.Opt2(instance,path)
+                NNRes2Opt.append(calcTour.fc(matrix,path))
+
+            KRRes2Opt = []
+            #2OPT+NN dla losowych permutacji
+            for pt in range(0,repeats):
+                path = krandom.krandom(size,matrix,k=1)
+                path = Opt2.Opt2(instance,path)
+                KRRes2Opt.append(calcTour.fc(matrix,path))
+
+            krmin = min(KRRes2Opt)
+            nnmin = min(NNRes2Opt)
+            
+            print(f"[NN]: {nnmin}, [kr]: {krmin}")
+            NNRes.append(nnmin)
+            KRRes.append(krmin)
+
+    w,p = wilcoxon(NNRes,KRRes)
+    print(w,p)
+    print(NNRes)
+    print(KRRes)
+
+            
+    
         
 #test6()
-test4()
+#test4()
+testWil()
 
