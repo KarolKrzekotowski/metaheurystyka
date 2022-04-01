@@ -75,7 +75,8 @@ if len(sys.argv) == 1:
         if alg == "NN":
             path,_ = nearestNeighbour.run(size, dis_mat, random.randint(0, size-1))
         elif alg == "k-NN":
-            path = nearestNeigbor2.run(size, dis_mat)
+            k = input('k: ')
+            path = nearestNeigbor2.run(size, dis_mat, int(k))
         elif alg == "k-random":
             k = input('k:')
             path = krandom(size, dis_mat, int(k))
@@ -88,7 +89,8 @@ if len(sys.argv) == 1:
             path = krandom(size, dis_mat, int(k))
             path = Opt2.Opt2(instance,path)
         elif alg == "2opt-kNN":
-            path = nearestNeigbor2.run(size, dis_mat)
+            k = input(" podaj k")
+            path = nearestNeigbor2.run(size, dis_mat, int(k))
             path = Opt2.Opt2(instance,path)
         else:
             sys.exit(1)
@@ -113,7 +115,7 @@ elif len(sys.argv) == 2:
             try:
                 k = int(input("podaj k"))
             except:
-                k = 100
+                k = 10
             path = nearestNeigbor2.run(size, dis_mat,k)
         elif alg == "k-random":
             k = input('k:' )

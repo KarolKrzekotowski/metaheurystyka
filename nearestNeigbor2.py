@@ -24,10 +24,17 @@ def run(size, dis_mat, k=100):
     starting_numbers = []
     best_distance = 9999999999
     # print(dis_mat)
-    for _ in range(0, k):
-        x = random.randint(0, size - 1)
-        if x not in starting_numbers:
-            starting_numbers.append(x)
+    if k != 0:
+
+        for _ in range(0, k):
+            x = random.randint(0, size - 1)
+            if x not in starting_numbers:
+                starting_numbers.append(x)
+
+    else:
+        for i in range(0,size ):
+            starting_numbers.append(i)
+
     for start in starting_numbers:
         dis_matrix = copy.deepcopy(dis_mat)
 
