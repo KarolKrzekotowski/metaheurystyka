@@ -32,6 +32,7 @@ class TabuSearch:
             if calcTour.fc(self.dis_mat,bestCandidate) > calcTour.fc(sBest):
                 sBest = bestCandidate
             tabuList.append(bestCandidate)
+            x += 1
 
 
 
