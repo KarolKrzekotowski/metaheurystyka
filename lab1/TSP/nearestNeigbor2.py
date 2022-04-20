@@ -9,7 +9,7 @@ from readData import ReadData
 start_time = time.time()
 
 
-def run(size, dis_mat, k=100):
+def run(size, dis_mat, k=0):
     """
     :parameter size - size of matrix
     :parameter dis_mat - matrix
