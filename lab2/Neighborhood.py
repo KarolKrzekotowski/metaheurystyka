@@ -5,7 +5,7 @@ class Neighborhood:
     def __init__(self,pathSize):
         self.pathSize = pathSize
         #do dostrojenia
-        self.hoodSize = 100
+        self.hoodSize = 420
         self.stallLimit = 5
 
     def get(self,bestCandidate,func):
