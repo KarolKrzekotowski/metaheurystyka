@@ -3,6 +3,7 @@ import lab1.TSP.readData as readData
 import lab1.TSP.nearestNeigbor2 as KNN
 import lab1.TSP.calcTour as calcTour
 import numpy as np
+import copy
 import  sys
 np.concatenate
 
@@ -15,6 +16,25 @@ class TabuSearch:
         self.path = path
         self.bestdistance = bestdistance
         self.dis_mat = dis_mat
+
+    def run(self, max_iterations):
+        sBest = copy.copy(self.path)
+        bestCandidate = copy.copy(self.path)
+        tabuList = []
+        tabuList.append(sBest)
+        x = 0
+        while x < max_iterations:
+            sNeighborhood = getNeighbors(bestCandidate)
+            bestCandidate = sNeighborhood[0]
+            for sCandidate in sNeighborhood:
+                if  sCandidate not in tabuList and calcTour.fc(self.dis_mat, sCandidate) > calcTour.fc(self.dis_mat, bestCandidate):
+                    bestCandidate = sCandidate
+            if calcTour.fc(self.dis_mat,bestCandidate) > calcTour.fc(sBest):
+                sBest = bestCandidate
+            tabuList.append(bestCandidate)
+
+
+
 
 
 
