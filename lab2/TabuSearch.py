@@ -1,11 +1,11 @@
 import tsplib95
-import lab1.TSP.readData as readData
-import lab1.TSP.nearestNeigbor2 as KNN
-import lab1.TSP.calcTour as calcTour
 import numpy as np
 import copy
-import  sys
-np.concatenate
+import sys
+sys.path.insert()
+import readData
+import nearestNeigbor2
+from Paths import fc, invert
 
 #neighbouring function
 
@@ -27,12 +27,13 @@ class TabuSearch:
             sNeighborhood = getNeighbors(bestCandidate)
             bestCandidate = sNeighborhood[0]
             for sCandidate in sNeighborhood:
-                if  sCandidate not in tabuList and calcTour.fc(self.dis_mat, sCandidate) > calcTour.fc(self.dis_mat, bestCandidate):
+                if  sCandidate not in tabuList and fc(self.dis_mat, sCandidate) > fc(self.dis_mat, bestCandidate):
                     bestCandidate = sCandidate
-            if calcTour.fc(self.dis_mat,bestCandidate) > calcTour.fc(sBest):
+            if fc(self.dis_mat,bestCandidate) > fc(sBest):
                 sBest = bestCandidate
             tabuList.append(bestCandidate)
             x += 1
+        print(fc(sBest))
 
 
 
@@ -45,5 +46,7 @@ if __name__ == '__main__':
     instance = readData.ReadData(file)
     size = instance.size
     dis_mat = instance.GetDistanceMat()
-    path = KNN.run(size, dis_mat, 0)
-    distance = calcTour.fc(dis_mat, path)
+    path = nearestNeigbor2.run(size, dis_mat, 0)
+    distance = fc(dis_mat, path)
+    halo = TabuSearch(distance,path,dis_mat)
+    halo.run(100)
