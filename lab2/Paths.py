@@ -1,4 +1,5 @@
 #funkcja tworzy permutację ścieżki z inwersją od punktu a do b
+# a < b
 def invert(path,a,b):
     newpath = path.copy()
     while a<b:
@@ -8,7 +9,7 @@ def invert(path,a,b):
         b-=1
     return newpath
 
-#funkcja tworzy permutację ścieżki z inwersją od punktu a do b
+#funkcja tworzy permutację ścieżki ze swapem od punktu a do b
 def swap(path,a,b):
     newpath = path.copy()
     temp = path[a]
@@ -25,7 +26,7 @@ funkcja oblicza funkcję celu w zależności od stanu przed
     a,b - zamieniane indeksy
     size - rozmiar ścieżki
 '''
-#może zostać użyta dla symetrycznego TSP invert
+#może zostać użyta dla symetrycznego TSP invert (lecz nie dla ATSP)
 def fcSwap(fc,mat,path,a,b,size):
     newfc = fc
     i1 = (path[a-1]-1)%size
@@ -46,6 +47,14 @@ def fcSwap(fc,mat,path,a,b,size):
     newfc += mat[path[a]-1][i2]
 
     return newfc
+
+def fcInvertATSP(fc,mat,oldpath,newpath,a,b,size):
+    newfc = fc
+    #odepnij A od lewej
+    newfc -= mat[(oldpath[a-1]-1)%size][oldpath[a]-1]
+    #odepnij B od prawej
+    #TODO
+    pass
 
 #funkcja liczy długość cyklu (wartość funkcji celu)
 def fc(mat,path):
