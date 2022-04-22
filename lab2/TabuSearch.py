@@ -6,7 +6,7 @@ import sys
 import readData
 import Neighborhood
 import nearestNeigbor2
-from Paths import fc, invert
+from Paths import fc, invert, swap
 
 #neighbouring function
 
@@ -19,7 +19,7 @@ class TabuSearch:
         self.dis_mat = dis_mat
         self.NH = Neighborhood.Neighborhood(len(self.path))
 
-    def run(self, max_iterations):
+    def run(self, max_iterations, maxTabuSize, type=invert):
         sBest = copy.copy(self.path)
         bestCandidate = copy.copy(self.path)
         print(fc(self.dis_mat,bestCandidate))
@@ -27,23 +27,30 @@ class TabuSearch:
         tabuList.append(sBest)
         x = 0
         while x < max_iterations:
-            sNeighborhood = self.NH.get(bestCandidate,invert)
+            sNeighborhood = self.NH.get(bestCandidate,type)
             bestCandidate = sNeighborhood[0]
             for sCandidate in sNeighborhood:
-                if  sCandidate not in tabuList and fc(self.dis_mat, sCandidate) < fc(self.dis_mat, bestCandidate):
+                if sCandidate not in tabuList and fc(self.dis_mat, sCandidate) < fc(self.dis_mat, bestCandidate):
                     bestCandidate = sCandidate
             if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat,sBest):
                 sBest = bestCandidate
+                print("best of", x, ":", fc(self.dis_mat, sBest))
             tabuList.append(bestCandidate)
-            print("best of",x,":",fc(self.dis_mat,sBest))
+
             x += 1
+            if (tabuList.size > maxTabuSize):
+                tabuList.pop(0)
+
         print(fc(self.dis_mat,sBest))
 
 
 
 
 
-
+types = {
+    'swap': swap,
+    'invert': invert
+}
 
 if __name__ == '__main__':
     file = sys.argv[1]
@@ -53,4 +60,8 @@ if __name__ == '__main__':
     path = nearestNeigbor2.run(size, dis_mat, 0)
     distance = fc(dis_mat, path)
     halo = TabuSearch(distance,path,dis_mat)
-    halo.run(100)
+    type = sys.argv[3]
+    if type in types:
+        func = types[type]
+        halo.run(int(sys.argv[2]),func)
+    # halo.run(int(sys.argv[2]))
