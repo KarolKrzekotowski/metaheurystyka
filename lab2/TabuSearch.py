@@ -38,7 +38,7 @@ class TabuSearch:
             tabuList.append(bestCandidate)
 
             x += 1
-            if (tabuList.size > maxTabuSize):
+            if (len(tabuList) > maxTabuSize):
                 tabuList.pop(0)
 
         print(fc(self.dis_mat,sBest))
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     path = nearestNeigbor2.run(size, dis_mat, 0)
     distance = fc(dis_mat, path)
     halo = TabuSearch(distance,path,dis_mat)
-    type = sys.argv[3]
+    type = sys.argv[4]
     if type in types:
         func = types[type]
-        halo.run(int(sys.argv[2]),func)
+        halo.run(int(sys.argv[2]),int(sys.argv[3]),func)
     # halo.run(int(sys.argv[2]))
