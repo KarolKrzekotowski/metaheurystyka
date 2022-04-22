@@ -8,7 +8,7 @@ class Neighborhood:
         self.hoodSize = 420
         self.stallLimit = 5
 
-    def get(self,bestCandidate,func):
+    def get(self):
         #słownik sprawdza czy nie wykonaliśmy już danego inverta 
         dict = {}
         arr = []
@@ -34,7 +34,6 @@ class Neighborhood:
 
             stall = 0
             dict[key]=True
-            newPath = func(bestCandidate,r1,r2)
-            arr.append(newPath)
+            arr.append([r1,r2])
 
         return arr

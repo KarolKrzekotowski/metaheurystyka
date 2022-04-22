@@ -21,25 +21,38 @@ class TabuSearch:
 
     def run(self, max_iterations, maxTabuSize, type=invert):
         sBest = copy.copy(self.path)
-        bestCandidate = copy.copy(self.path)
-        print(fc(self.dis_mat,bestCandidate))
+
+        bestCandidate = []
+        bestCandidatePath = copy.copy(self.path)
+        bestCandidateFC = fc(self.dis_mat,bestCandidatePath)
+        print(fc(self.dis_mat,bestCandidatePath))
         tabuList = []
+        tabuListPerm = []
         tabuList.append(sBest)
         x = 0
         while x < max_iterations:
-            sNeighborhood = self.NH.get(bestCandidate,type)
+            sNeighborhood = self.NH.get()
+
             bestCandidate = sNeighborhood[0]
             for sCandidate in sNeighborhood:
-                if sCandidate not in tabuList and fc(self.dis_mat, sCandidate) < fc(self.dis_mat, bestCandidate):
-                    bestCandidate = sCandidate
-            if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat,sBest):
-                sBest = bestCandidate
+                if sCandidate not in tabuListPerm:
+                    sCandidatePath = invert(bestCandidatePath,sCandidate)
+                    sCandidateFC = fc(self.dis_mat,sCandidatePath)
+                    if (sCandidateFC < bestCandidateFC):
+                        bestCandidatePath = sCandidatePath
+                        bestCandidate = sCandidate
+                        bestCandidateFC = sCandidateFC
+    
+            if fc(self.dis_mat,bestCandidatePath) < fc(self.dis_mat,sBest):
+                sBest = bestCandidatePath
+                print(tabuListPerm)
                 print("best of", x, ":", fc(self.dis_mat, sBest))
-            tabuList.append(bestCandidate)
+
+            tabuListPerm.append(bestCandidate)
 
             x += 1
-            if (len(tabuList) > maxTabuSize):
-                tabuList.pop(0)
+            if (len(tabuListPerm) > maxTabuSize):
+                tabuListPerm.pop(0)
 
         print(fc(self.dis_mat,sBest))
 

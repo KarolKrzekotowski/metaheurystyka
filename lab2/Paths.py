@@ -1,7 +1,9 @@
 #funkcja tworzy permutację ścieżki z inwersją od punktu a do b
 # a < b
-def invert(path,a,b):
+def invert(path,pair):
     newpath = path.copy()
+    a = pair[0]
+    b = pair[1]
     while a<b:
         newpath[a] = path[b]
         newpath[b] = path[a]
