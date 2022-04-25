@@ -31,8 +31,10 @@ class TabuSearch:
         counter = 0
         long_memory_paths_6 = [sBest]
         while x < max_iterations:
+            #jeśli nie ma zmian przez dłuższy czas, cofamy
             if counter == max_counter:
                 counter = 0
+                #jeśli nie możemy cofnąć, kończymy
                 if len(long_memory_paths_6) == 0:
                     self.end(sBest)
                 bestCandidate = long_memory_paths_6[-1]
@@ -44,11 +46,13 @@ class TabuSearch:
                     bestCandidate = sCandidate
             if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat, sBest):
                 sBest = bestCandidate
+                # jeśli liczba potencjalnych cofnięć przekracza 6 usuwamy najgorszy rezultat
                 if len(long_memory_paths_6) > 6:
                     long_memory_paths_6.pop(0)
                 long_memory_paths_6.append(sBest)
                 counter = 0
                 print("best of", x, ":", fc(self.dis_mat, sBest))
+            #gorsze rezultaty zwiększają licznik bez zmian, taki sam rezultat nic nie zmienia
             elif fc(self.dis_mat, bestCandidate) > fc(self.dis_mat, sBest):
                 counter += 1
             tabuList.append(bestCandidate)
