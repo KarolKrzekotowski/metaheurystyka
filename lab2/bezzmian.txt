@@ -68,3 +68,4 @@ if __name__ == '__main__':
         func = types[type]
         halo.run(int(sys.argv[2]), int(sys.argv[3]), func)
     # halo.run(int(sys.argv[2]))
+

@@ -23,27 +23,45 @@ class TabuSearch:
     def run(self, max_iterations, maxTabuSize, type=invert):
         sBest = copy.copy(self.path)
         bestCandidate = copy.copy(self.path)
+        max_counter = 1000
         print(fc(self.dis_mat,bestCandidate))
         tabuList = []
         tabuList.append(sBest)
         x = 0
         counter = 0
+        long_memory_paths_6 = [sBest]
         while x < max_iterations:
-            sNeighborhood = self.NH.get(bestCandidate,type)
+            if counter == max_counter:
+                counter = 0
+                if len(long_memory_paths_6) == 0:
+                    self.end(sBest)
+                bestCandidate = long_memory_paths_6[-1]
+                long_memory_paths_6.pop(-1)
+            sNeighborhood = self.NH.get(bestCandidate, type)
             bestCandidate = sNeighborhood[0]
             for sCandidate in sNeighborhood:
                 if sCandidate not in tabuList and fc(self.dis_mat, sCandidate) < fc(self.dis_mat, bestCandidate):
                     bestCandidate = sCandidate
-            if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat,sBest):
+            if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat, sBest):
                 sBest = bestCandidate
+                if len(long_memory_paths_6) > 6:
+                    long_memory_paths_6.pop(0)
+                long_memory_paths_6.append(sBest)
+                counter = 0
                 print("best of", x, ":", fc(self.dis_mat, sBest))
+            elif fc(self.dis_mat, bestCandidate) > fc(self.dis_mat, sBest):
+                counter += 1
             tabuList.append(bestCandidate)
-
+            print(x,len(long_memory_paths_6), counter)
             x += 1
             if (len(tabuList) > maxTabuSize):
                 tabuList.pop(0)
 
         print(fc(self.dis_mat,sBest))
+
+    def end(self,sBest):
+        print(fc(self.dis_mat, sBest))
+        sys.exit(0)
 
 
 
@@ -55,6 +73,10 @@ types = {
 }
 
 if __name__ == '__main__':
+    print(len(sys.argv))
+    if len(sys.argv) != 5:
+        print("plik, iteracje, rozmiar tablicy tabu, invert/swap")
+        sys.exit(1)
     file = sys.argv[1]
     instance = readData.ReadData(file)
     size = instance.size
@@ -68,3 +90,4 @@ if __name__ == '__main__':
         func = types[type]
         halo.run(int(sys.argv[2]), int(sys.argv[3]), func)
     # halo.run(int(sys.argv[2]))
+
