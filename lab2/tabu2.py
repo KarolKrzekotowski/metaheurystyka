@@ -78,9 +78,14 @@ if __name__ == '__main__':
         print("plik, iteracje, rozmiar tablicy tabu, invert/swap")
         sys.exit(1)
     file = sys.argv[1]
-    instance = readData.ReadData(file)
-    size = instance.size
-    dis_mat = instance.GetDistanceMat()
+    if file[-4] == 'a':
+        instance = readData.ReadData(file, True)
+        size = instance.size
+        dis_mat = instance.dis_mat
+    else:
+        instance = readData.ReadData(file)
+        size = instance.size
+        dis_mat = instance.GetDistanceMat()
     path = nearestNeigbor2.run(size, dis_mat, 0)
     path = Opt2.Opt2(instance,path)
     distance = fc(dis_mat, path)

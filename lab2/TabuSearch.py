@@ -1,22 +1,21 @@
-import tsplib95
-import numpy as np
+
 import copy
 import sys
-#sys.path.insert()
+
 import readData
 import Neighborhood
 import nearestNeigbor2
 import Opt2
 from Paths import fc, invert, swap
 
-#neighbouring function
+# neighbouring function
 
 
 class TabuSearch:
 
     def __init__(self, bestdistance, path, dis_mat):
         self.path = path
-        self.bestdistance = bestdistance
+        self.best_distance = bestdistance
         self.dis_mat = dis_mat
         self.NH = Neighborhood.Neighborhood(len(self.path))
 
@@ -56,9 +55,15 @@ types = {
 
 if __name__ == '__main__':
     file = sys.argv[1]
-    instance = readData.ReadData(file)
-    size = instance.size
-    dis_mat = instance.GetDistanceMat()
+    if file[-4] == 'a':
+        instance = readData.ReadData(file,True)
+        size = instance.size
+        dis_mat = instance.dis_mat
+    else:
+        instance = readData.ReadData(file)
+        size = instance.size
+        dis_mat = instance.GetDistanceMat()
+
     path = nearestNeigbor2.run(size, dis_mat, 0)
     path = Opt2.Opt2(instance,path)
     distance = fc(dis_mat, path)

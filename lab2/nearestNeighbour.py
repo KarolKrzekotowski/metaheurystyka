@@ -9,6 +9,7 @@ def run(size,dis_mat,start_point):
 
     path_index = [start_point]
     changed_path = copy.deepcopy(dis_mat)
+    # print(changed_path)
     for i in range(size):
         changed_path[i][i] = 999999999
     path_index.append( np.argmin(changed_path[start_point]))
