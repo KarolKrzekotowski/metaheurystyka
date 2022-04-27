@@ -70,6 +70,7 @@ def fc(mat,path):
     #dokończenie cyklu
     p1 = path[l-1]
     p2 = path[0]
+
     fc += mat[p1-1][p2-1]
 
     return fc

@@ -20,7 +20,7 @@ class TabuSearch:
         self.dis_mat = dis_mat
         self.NH = Neighborhood.Neighborhood(len(self.path))
 
-    def run(self, max_iterations, maxTabuSize, type=invert):
+    def run(self, max_iterations, maxTabuSize, method=invert):
         sBest = copy.copy(self.path)
         bestCandidate = copy.copy(self.path)
         max_counter = len(bestCandidate)
@@ -29,39 +29,49 @@ class TabuSearch:
         tabuList.append(sBest)
         x = 0
         counter = 0
-        long_memory_paths_6 = [sBest]
+        long_memory_paths_10 = [sBest]
+        the_best_path = copy.copy(sBest)
         while x < max_iterations:
             #jeśli nie ma zmian przez dłuższy czas, cofamy
             if counter == max_counter:
                 counter = 0
                 #jeśli nie możemy cofnąć, kończymy
-                if len(long_memory_paths_6) == 0:
-                    self.end(sBest)
-                bestCandidate = long_memory_paths_6[-1]
-                long_memory_paths_6.pop(-1)
-            sNeighborhood = self.NH.get(bestCandidate, type)
+                if len(long_memory_paths_10) == 0:
+                    self.end(the_best_path)
+                bestCandidate = long_memory_paths_10[-1]
+                sBest = copy.copy(bestCandidate)
+                long_memory_paths_10.pop(-1)
+            sNeighborhood = self.NH.get(bestCandidate, method)
             bestCandidate = sNeighborhood[0]
+
             for sCandidate in sNeighborhood:
                 if sCandidate not in tabuList and fc(self.dis_mat, sCandidate) < fc(self.dis_mat, bestCandidate):
                     bestCandidate = sCandidate
-            if fc(self.dis_mat,bestCandidate) < fc(self.dis_mat, sBest):
+            # porównanie najlepszy kandydat z tymczasowym najlepszym
+            if fc(self.dis_mat, bestCandidate) < fc(self.dis_mat, sBest):
                 sBest = bestCandidate
-                # jeśli liczba potencjalnych cofnięć przekracza 6 usuwamy najgorszy rezultat
-                if len(long_memory_paths_6) > 6:
-                    long_memory_paths_6.pop(0)
-                long_memory_paths_6.append(sBest)
+
+                #jeśli nie było lepszego rezultatu dotychczas to go ustawiamy jako trwały najlepszy
+                if fc(self.dis_mat, sBest) < fc(self.dis_mat, the_best_path):
+                    the_best_path = sBest
+                    print("-----------------\nnew The best: ", fc(self.dis_mat,the_best_path))
+
+                # jeśli liczba potencjalnych cofnięć przekracza 10 usuwamy najgorszy rezultat
+                if len(long_memory_paths_10) > 10:
+                    long_memory_paths_10.pop(0)
+                long_memory_paths_10.append(sBest)
                 counter = 0
-                print("best of", x, ":", fc(self.dis_mat, sBest))
+                print("best of temporary path", x, ":", fc(self.dis_mat, sBest))
             #gorsze rezultaty zwiększają licznik bez zmian, taki sam rezultat nic nie zmienia
             elif fc(self.dis_mat, bestCandidate) > fc(self.dis_mat, sBest):
                 counter += 1
             tabuList.append(bestCandidate)
-            print(x,len(long_memory_paths_6), counter)
+            print(x,len(long_memory_paths_10), counter)
             x += 1
             if (len(tabuList) > maxTabuSize):
                 tabuList.pop(0)
 
-        print(fc(self.dis_mat,sBest))
+        print(fc(self.dis_mat,the_best_path))
 
     def end(self,sBest):
         print(fc(self.dis_mat, sBest))
@@ -71,7 +81,7 @@ class TabuSearch:
 
 
 
-types = {
+methods= {
     'swap': swap,
     'invert': invert
 }
@@ -94,8 +104,8 @@ if __name__ == '__main__':
     path = Opt2.Opt2(instance,path)
     distance = fc(dis_mat, path)
     halo = TabuSearch(distance,path,dis_mat)
-    type = sys.argv[4]
-    if type in types:
-        func = types[type]
+    method = sys.argv[4]
+    if method in methods:
+        func = methods[method]
         halo.run(int(sys.argv[2]), int(sys.argv[3]), func)
     # halo.run(int(sys.argv[2]))
