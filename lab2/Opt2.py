@@ -1,5 +1,4 @@
 import Paths
-import copy
 #funkcja tworzy permutację ścieżki z inwersją od punktu a do b
 def invert(path,a,b):
     newpath = path.copy()
@@ -12,16 +11,22 @@ def invert(path,a,b):
     
     return newpath
 
-def Opt2(instance, path):
+def Opt2(instance, path, method):
     #pobierz informacje
+    print(path)
     size = instance.size
-    mat = copy.deepcopy(instance.dis_mat)
+    mat = instance.dis_mat
+    TSP = (instance.sufix == ".tsp")
+    INVERT = (method == "invert")
+
+    print(INVERT)
 
     #koszt optymalnej drogi dla wszystkich instancji
     bestfc = Paths.fc(mat,path)
 
     while True:
         #zmienne przechowują najlepszy wynik instancji
+        initfc = bestfc
         insfc = bestfc
         inspath = path
 
@@ -29,7 +34,10 @@ def Opt2(instance, path):
         for i in range(0,size):
             for j in range(i+1,size):
                 p = invert(path,i,j)
-                t = Paths.fc(mat,p)
+                if TSP and INVERT:
+                    t = Paths.fcInvertTSP(initfc,mat,path,i,j,size)
+                else:
+                    t = Paths.fc(mat,p)
                 #najlepsza ścieżka instancji
                 if t<insfc:
                     insfc = t

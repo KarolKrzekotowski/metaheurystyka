@@ -22,39 +22,28 @@ funkcja oblicza funkcję celu w zależności od stanu przed
 (działa O(1) a nie O(n) w zależności od długości ścieżki)
     fc - wartość funkcji celu przed swapem
     mat - macierz z wartościami krawędzi
-    path - ścieżka przed swapem
+    path - ścieżka przed invertem
     a,b - zamieniane indeksy
     size - rozmiar ścieżki
 '''
 #może zostać użyta dla symetrycznego TSP invert (lecz nie dla ATSP)
-def fcSwap(fc,mat,path,a,b,size):
+def fcInvertTSP(fc,mat,path,a,b,size):
+    if a == 0:
+        if b == size-1:
+            return fc
+
     newfc = fc
-    i1 = (path[a-1]-1)%size
-    i2 = (path[a+1]-1)%size
-    #odepnij A
+    i1 = (path[(a-1)%size]-1)
+    i2 = (path[(b+1)%size]-1)
+    
+    #wstaw B w A
     newfc -= mat[i1][path[a]-1]
-    newfc -= mat[path[a]-1][i2]
-    #wstaw B w miejsce A
     newfc += mat[i1][path[b]-1]
-    newfc += mat[path[b]-1][i2]
-    i1 = (path[b-1]-1)%size
-    i2 = (path[b+1]-1)%size
-    #odepnij B
-    newfc -= mat[i1][path[b]-1]
+    #wstaw A w B
     newfc -= mat[path[b]-1][i2]
-    #wstaw A w miejsce B
-    newfc += mat[i1][path[a]-1]
     newfc += mat[path[a]-1][i2]
 
     return newfc
-
-def fcInvertATSP(fc,mat,oldpath,newpath,a,b,size):
-    newfc = fc
-    #odepnij A od lewej
-    newfc -= mat[(oldpath[a-1]-1)%size][oldpath[a]-1]
-    #odepnij B od prawej
-    #TODO
-    pass
 
 #funkcja liczy długość cyklu (wartość funkcji celu)
 def fc(mat,path):
@@ -70,7 +59,6 @@ def fc(mat,path):
     #dokończenie cyklu
     p1 = path[l-1]
     p2 = path[0]
-
     fc += mat[p1-1][p2-1]
 
     return fc
