@@ -101,7 +101,7 @@ if __name__ == '__main__':
         size = instance.size
         dis_mat = instance.GetDistanceMat()
     path = nearestNeigbor2.run(size, dis_mat, 0)
-    path = Opt2.Opt2(instance,path)
+    path = Opt2.Opt2(instance,path, "")
     distance = fc(dis_mat, path)
     halo = TabuSearch(distance,path,dis_mat)
     method = sys.argv[4]

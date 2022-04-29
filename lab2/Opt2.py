@@ -11,15 +11,13 @@ def invert(path,a,b):
     
     return newpath
 
-def Opt2(instance, path, method):
+def Opt2(instance, path, INVERT=True):
     #pobierz informacje
     print(path)
     size = instance.size
     mat = instance.dis_mat
     TSP = (instance.sufix == ".tsp")
-    INVERT = (method == "invert")
 
-    print(INVERT)
 
     #koszt optymalnej drogi dla wszystkich instancji
     bestfc = Paths.fc(mat,path)
