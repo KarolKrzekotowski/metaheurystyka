@@ -20,11 +20,11 @@ class TabuSearch:
         self.dis_mat = dis_mat
         self.NH = Neighborhood.Neighborhood(len(self.path))
 
-    def run(self, max_iterations, maxTabuSize, method=invert):
+    def run(self, max_iterations, maxTabuSize, size_of_long_memory, method=invert):
         sBest = copy.copy(self.path)
         bestCandidate = copy.copy(self.path)
         max_counter = len(bestCandidate)
-        print(fc(self.dis_mat,bestCandidate))
+        # print(fc(self.dis_mat,bestCandidate))
         tabuList = []
         tabuList.append(sBest)
         x = 0
@@ -37,7 +37,8 @@ class TabuSearch:
                 counter = 0
                 #jeśli nie możemy cofnąć, kończymy
                 if len(long_memory_paths_10) == 0:
-                    self.end(the_best_path)
+                    print(fc(self.dis_mat, the_best_path))
+                    break
                 bestCandidate = long_memory_paths_10[-1]
                 sBest = copy.copy(bestCandidate)
                 long_memory_paths_10.pop(-1)
@@ -54,28 +55,26 @@ class TabuSearch:
                 #jeśli nie było lepszego rezultatu dotychczas to go ustawiamy jako trwały najlepszy
                 if fc(self.dis_mat, sBest) < fc(self.dis_mat, the_best_path):
                     the_best_path = sBest
-                    print("-----------------\nnew The best: ", fc(self.dis_mat,the_best_path))
+                    print(x, "; ", fc(self.dis_mat,the_best_path))
 
                 # jeśli liczba potencjalnych cofnięć przekracza 10 usuwamy najgorszy rezultat
-                if len(long_memory_paths_10) > 10:
+                if len(long_memory_paths_10) > size_of_long_memory:
                     long_memory_paths_10.pop(0)
                 long_memory_paths_10.append(sBest)
                 counter = 0
-                print("best of temporary path", x, ":", fc(self.dis_mat, sBest))
+                # print( x, fc(self.dis_mat, sBest))
             #gorsze rezultaty zwiększają licznik bez zmian, taki sam rezultat nic nie zmienia
             elif fc(self.dis_mat, bestCandidate) > fc(self.dis_mat, sBest):
                 counter += 1
             tabuList.append(bestCandidate)
-            print(x,len(long_memory_paths_10), counter)
+
             x += 1
             if (len(tabuList) > maxTabuSize):
                 tabuList.pop(0)
 
-        print(fc(self.dis_mat,the_best_path))
+        print(max_iterations, "; ", fc(self.dis_mat,the_best_path))
 
-    def end(self,sBest):
-        print(fc(self.dis_mat, sBest))
-        sys.exit(0)
+
 
 
 
