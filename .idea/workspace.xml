@@ -4,12 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="wstęp">
-      <change afterPath="$PROJECT_DIR$/lab2/generateData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab2/normalTabu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab2/pokaz.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab2/testy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab2/tabu2.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2/tabu2.py" afterDir="false" />
+    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="wyniki">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/Neighborhood.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/Opt2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/Paths.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/TSP_Data/random_instance_file.atsp" beforeDir="false" afterPath="$PROJECT_DIR$/lab2/TSP_Data/random_instance_file.atsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/TabuSearch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/bezzmian.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/generateData.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/nearestNeigbor2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/nearestNeighbour.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/normalTabu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/pokaz.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/readData.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/tabu2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/testy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/zmiany.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +118,9 @@
       <workItem from="1651073247407" duration="2524000" />
       <workItem from="1651087288048" duration="254000" />
       <workItem from="1651245514037" duration="2596000" />
-      <workItem from="1651421965491" duration="15110000" />
+      <workItem from="1651421965491" duration="15173000" />
+      <workItem from="1651846400918" duration="813000" />
+      <workItem from="1651849312877" duration="2228000" />
     </task>
     <task id="LOCAL-00001" summary="data">
       <created>1647018134603</created>
@@ -410,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651245797847</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="wyniki">
+      <created>1651444913354</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1651444913354</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,6 +464,7 @@
     <MESSAGE value="wykresy i poprawa czytania" />
     <MESSAGE value="katalogi" />
     <MESSAGE value="wstęp" />
-    <option name="LAST_COMMIT_MESSAGE" value="wstęp" />
+    <MESSAGE value="wyniki" />
+    <option name="LAST_COMMIT_MESSAGE" value="wyniki" />
   </component>
 </project>

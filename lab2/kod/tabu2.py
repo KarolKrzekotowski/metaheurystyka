@@ -7,7 +7,7 @@ import readData
 import Neighborhood
 import nearestNeigbor2
 import Opt2
-from Paths import fc, invert, swap
+from Paths import fc, invert, swap, PRD
 
 #neighbouring function
 
@@ -20,7 +20,7 @@ class TabuSearch:
         self.dis_mat = dis_mat
         self.NH = Neighborhood.Neighborhood(len(self.path))
 
-    def run(self, max_iterations, maxTabuSize, size_of_long_memory, method=invert):
+    def run(self, max_iterations, maxTabuSize, najlepsze, size_of_long_memory=9, method=invert):
         sBest = copy.copy(self.path)
         bestCandidate = copy.copy(self.path)
         max_counter = len(bestCandidate)
@@ -55,7 +55,7 @@ class TabuSearch:
                 #jeśli nie było lepszego rezultatu dotychczas to go ustawiamy jako trwały najlepszy
                 if fc(self.dis_mat, sBest) < fc(self.dis_mat, the_best_path):
                     the_best_path = sBest
-                    print(x, "; ", fc(self.dis_mat,the_best_path))
+                    print(x, "; ", fc(self.dis_mat,the_best_path),"; ",PRD(fc(self.dis_mat,the_best_path),najlepsze,))
 
                 # jeśli liczba potencjalnych cofnięć przekracza 10 usuwamy najgorszy rezultat
                 if len(long_memory_paths_10) > size_of_long_memory:

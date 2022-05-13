@@ -21,7 +21,7 @@ if sys.argv[1] == 'nowy':
         # dimension, seed, option, minimum, maximum = sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]
         x = int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], int(sys.argv[5]), int(sys.argv[6])
     except:
-        print("nowy, dimension, seed, option, minimum, maximum")
+        print("nowy, dimension, seed, option(FULL_MATRIX, LOWER_DIAG_ROW, EUC_2D), minimum, maximum")
         sys.exit(1)
     generateData.generateData(*x)
 
@@ -35,6 +35,8 @@ if sys.argv[1] == 'nowy':
         instance = ReadData(file,True)
         size = instance.size
         dis_mat = instance.dis_mat
+    path = nearestNeigbor2.run(size, dis_mat, 0)
+    path = Opt2.Opt2(instance, path, True)
 
 else:
     if len(sys.argv) > 3:
@@ -57,6 +59,8 @@ else:
         if sys.argv[2] == '1':
             path = nearestNeigbor2.run(size, dis_mat, 0)
             path = Opt2.Opt2(instance, path, True)
+        else:
+            path =  nearestNeigbor2.run(size, dis_mat, 0)
 
 
 distance = fc(dis_mat, path)
@@ -70,7 +74,8 @@ while True:
 
     (tabu_size) = int(input("rozmiar tabu "))
     iterations = int(input("ilość iteracji "))
-    halo.run(int(iterations), int(tabu_size), methods[func])
+    najlepsza = int(input("najlepsza możliwa "))
+    halo.run(int(iterations), int(tabu_size),najlepsza, method=methods[func])
 
 
 
