@@ -24,15 +24,16 @@ MUTATION_CHANCE = 0.5
 LIFE_EXPECTANCY = 10
 
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance):
+    def __init__(self, generations, islandNb, instance,r_cross):
         self.generation = 0
         self.generationNb = generations
         self.islandNb = islandNb
         self.ISLANDS = []
         self.instance = instance
 
+
         for i in range(islandNb):
-            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, LIFE_EXPECTANCY, "Wyspa "+str(i)))
+            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,LIFE_EXPECTANCY, "Wyspa "+str(i)))
 
     def createPopulation(self, population, parents, children):
         #bierzemy podział elity + 1:2:2
@@ -111,6 +112,7 @@ class GeneticAlgorithm():
             #wybór rodziców (ruletka)
             parents = ISLAND.select(PARENTS_SIZE)
             #krzyżowanie (TODO)
+            #metoda Single-Point Crossover
             children = ISLAND.crossover(parents)
             #utworzenie nowej populacji
             new_population = self.createPopulation(ISLAND.population,parents,children)
@@ -126,7 +128,7 @@ def test():
     else:
         instance = readData.ReadData(file)
 
-    GA = GeneticAlgorithm(1000,2,instance)
+    GA = GeneticAlgorithm(1000,2,instance,0.5)
     GA.simulate()
 
 test()

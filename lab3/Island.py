@@ -3,6 +3,9 @@ from Roulette import Roulette
 import Paths
 import krandom
 
+from copy import copy, deepcopy
+from Paths import fc
+
 #klasa definiuje członka populacji
 class Member():
     def __init__(self, permutation, pfc, death):
@@ -19,7 +22,7 @@ class Member():
 
 
 class Island():
-    def __init__(self, populationSize, instance, lifeExpectancy,name="Unnamed"):
+    def __init__(self, populationSize, instance,r_cross, lifeExpectancy,name="Unnamed"):
         #rozmiar populacji początkowej
         self.populationSize = populationSize
         #populacja
@@ -30,6 +33,7 @@ class Island():
         self.instance = instance
         self.lifeExpectancy = lifeExpectancy
         self.generateMembers(self.populationSize)
+        self.r_cross = r_cross
         
         
     #wygenereuj populację o danym rozmiarze
@@ -48,15 +52,48 @@ class Island():
         for _ in range(amount):
             ix = self.roulette.getOne()
             selected.append(self.population[ix])
+
         return selected
 
-    #krzyżowanie osobników TODO
+
+    def create_child(self,p1, p2, point) -> "childer":
+        c = p1.perm[0:point]
+
+        for i in range(0,len(p1.perm)):
+            if p2.perm[i] not in c:
+                c.append(p2.perm[i])
+        return c
+    #krzyżowanie osobników
     def crossover(self,parents):
         children = []
+        r_cross = self.r_cross
         #TODO
+        #zwraca tablice members
+
+        parents = deepcopy(parents)
+        parents: [Member,Member] = [[parents[i],parents[i+1]]for i in range(0,len(parents), 2)]
         for p in parents:
-            pn = Member(p.perm,p.fc,self.generation + self.lifeExpectancy)
-            children.append(pn)
+
+            if random() < r_cross:
+                # losowy punkt krzyżowania
+                pt = randint(1,len(p[0].perm)-2)
+                # dziecko 1
+                c1 = self.create_child(p[0],p[1],pt)
+                c1 = Member(c1, fc(self.instance.dis_mat,c1), self.generation + self.lifeExpectancy)
+                children.append(c1)
+                # dziecko 2
+                c2 = self.create_child(p[1],p[0],pt)
+                c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
+                children.append(c2)
+
+
+
+            else:
+                c1 = Member(p[0].perm,p[0].fc,self.generation + self.lifeExpectancy)
+                children.append(c1)
+
+                c2 = Member(p[1].perm, p[1].fc, self.generation + self.lifeExpectancy)
+                children.append(c2)
         return children
 
     #"ukradnij" osobników do migracji (szansa ruletką)
