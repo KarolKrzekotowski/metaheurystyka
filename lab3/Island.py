@@ -84,6 +84,7 @@ class Island():
 
         for i in range(r1):
 
+
             c1[i] = d1[0]
             d1.pop(0)
 
