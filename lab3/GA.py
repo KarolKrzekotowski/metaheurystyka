@@ -81,7 +81,8 @@ class GeneticAlgorithm():
         self.generation += 1
         for ISLAND in self.ISLANDS:
             ISLAND.generation = self.generation
-        
+
+
         #wymieranie najgorszej wyspy
         if random.random() < NUKE_CHANCE:
             highest = 0

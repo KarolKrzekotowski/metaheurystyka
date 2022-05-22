@@ -92,6 +92,7 @@ class Island():
         # typ OX - order crossover
         #zwraca tablice members
 
+
         parents = deepcopy(parents)
         parents: [Member,Member] = [[parents[i],parents[i+1]]for i in range(0,len(parents), 2)]
         for p in parents:
