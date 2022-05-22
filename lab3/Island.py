@@ -55,34 +55,61 @@ class Island():
 
         return selected
 
+    def create_child(self,p1, p2, r1, r2) -> [] :
+        # lista wypełniona -100
+        c1 = [-100] * len(p1)
+        # środek rodzica 2
+        c2_inside = p1[r1:r2 + 1]
+        # prawa ręka rodzica 2
+        c2_right = p2[r2 + 1:]
+        # lewa ręka rodzica 2
+        c2_left = p2[0:r1]
+        # right -> left -> inside
+        merged_c1 = c2_right + c2_left + c2_inside
 
-    def create_child(self,p1, p2, point) -> "childer":
-        c = p1.perm[0:point]
+        # wpisanie wycięcie korpusu rodzica 1
+        for e in range(r1, r2 + 1):
+            c1[e] = p1[e]
+        # lista niepowtarzających się elementów
+        d1 = []
+        for i in merged_c1:
+            if i not in c1:
+                d1.append(i)
+        # wszycie prawej ręki do ciała dziecka
+        for i in range(r2 + 1, len(c1)):
+            c1[i] = d1[0]
+            d1.pop(0)
+        # wszycie lewej ręki do ciała dziecka
+        for i in range(r1):
+            c1[i] = d1[0]
+            d1.pop(0)
+        return c1
 
-        for i in range(0,len(p1.perm)):
-            if p2.perm[i] not in c:
-                c.append(p2.perm[i])
-        return c
     #krzyżowanie osobników
-    def crossover(self,parents):
+    def crossover(self,parents) -> [Member]:
         children = []
         r_cross = self.r_cross
-        #TODO
+        # typ OX - order crossover
         #zwraca tablice members
 
         parents = deepcopy(parents)
         parents: [Member,Member] = [[parents[i],parents[i+1]]for i in range(0,len(parents), 2)]
         for p in parents:
-
+            # krzyżujemy czy nie?
             if random() < r_cross:
-                # losowy punkt krzyżowania
-                pt = randint(1,len(p[0].perm)-2)
+                while True:
+                    p1 = randint(0,len(p[0].perm))
+                    p2 = randint(0,len(p[0].perm)-1)
+                    if p1 < p2:
+                        break
+
+
                 # dziecko 1
-                c1 = self.create_child(p[0],p[1],pt)
+                c1 = self.create_child(p[0].perm,p[1].perm,p1,p2)
                 c1 = Member(c1, fc(self.instance.dis_mat,c1), self.generation + self.lifeExpectancy)
                 children.append(c1)
                 # dziecko 2
-                c2 = self.create_child(p[1],p[0],pt)
+                c2 = self.create_child(p[1].perm,p[0].perm,p1,p2)
                 c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
                 children.append(c2)
 
