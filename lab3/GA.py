@@ -19,7 +19,7 @@ PARENTS_SIZE = int(POPULATION_SIZE/2)
 #ilość członków "elitarnych"
 ELITES = 3
 #szansa mutacji każdego osobnika
-MUTATION_CHANCE = 0.5
+MUTATION_CHANCE = 1.0
 #maksymalna ilość generacji danego osobnika
 LIFE_EXPECTANCY = 10
 

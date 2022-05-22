@@ -83,7 +83,7 @@ class Island():
         # wszycie lewej ręki do ciała dziecka
 
         for i in range(r1):
-            print(i)
+
             c1[i] = d1[0]
             d1.pop(0)
 
