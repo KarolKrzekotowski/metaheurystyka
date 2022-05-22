@@ -59,7 +59,7 @@ class Island():
         # lista wypełniona -100
         c1 = [-100] * len(p1)
         # środek rodzica 2
-        c2_inside = p1[r1:r2 + 1]
+        c2_inside = p2[r1:r2 + 1]
         # prawa ręka rodzica 2
         c2_right = p2[r2 + 1:]
         # lewa ręka rodzica 2
@@ -76,13 +76,17 @@ class Island():
             if i not in c1:
                 d1.append(i)
         # wszycie prawej ręki do ciała dziecka
+
         for i in range(r2 + 1, len(c1)):
             c1[i] = d1[0]
             d1.pop(0)
         # wszycie lewej ręki do ciała dziecka
+
         for i in range(r1):
+            print(i)
             c1[i] = d1[0]
             d1.pop(0)
+
         return c1
 
     #krzyżowanie osobników
