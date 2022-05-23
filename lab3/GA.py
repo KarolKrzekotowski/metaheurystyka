@@ -11,7 +11,7 @@ NUKE_CHANCE = 0.001
 #ilość populacji usuniętej podczas wymierania
 NUKE_AMOUNT = 0.8
 #szansa na migrację
-MIGRATION_CHANCE = 0.00
+MIGRATION_CHANCE = 1.00
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
@@ -19,7 +19,7 @@ PARENTS_SIZE = int(POPULATION_SIZE/2)
 #ilość członków "elitarnych"
 ELITES = 3
 #szansa mutacji każdego osobnika
-MUTATION_CHANCE = 1.0
+MUTATION_CHANCE = 0.5
 #maksymalna ilość generacji danego osobnika
 LIFE_EXPECTANCY = 10
 
@@ -97,9 +97,12 @@ class GeneticAlgorithm():
 
         #migracja pomiędzy dwoma wyspami
         #TODO duplikaty mogą wywalić program
-        if random.random() < MIGRATION_CHANCE:
+        x = random.random()
+
+        if x < MIGRATION_CHANCE:
             r1 = random.randint(0,self.islandNb-1)
             r2 = random.randint(0,self.islandNb-1)
+
             if r1 != r2:
                 print(f"Migracja pomiędzy {self.ISLANDS[r1].name} a {self.ISLANDS[r2].name}")
                 migrantsA = self.ISLANDS[r1].stealMembers(MIGRATING_MEMBERS)
@@ -108,6 +111,7 @@ class GeneticAlgorithm():
                     self.ISLANDS[r1].putInOrder(m)
                 for m in migrantsA:
                     self.ISLANDS[r2].putInOrder(m)
+
 
         for ISLAND in self.ISLANDS:
             #wybór rodziców (ruletka)

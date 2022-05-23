@@ -133,16 +133,22 @@ class Island():
     def stealMembers(self,amount):
         stolenIx = []
         stolen = []
-        for _ in range(amount):
+        a = 0
+        while a < amount:
             ix = self.roulette.getOne()
-            stolen.append(self.population[ix])
-            stolenIx.append(ix)
+            if ix not in stolenIx:
+                stolenIx.append(ix)
+                stolen.append(self.population[ix])
+                a += 1
 
         stolenIx.sort(reverse=True)
-        
 
-        for s in stolenIx:
-            print(stolenIx)
+        print(stolenIx)
+        print(self.population[0].perm, "hej")
+        for a, s in enumerate(stolenIx):
+
+            # print(a)
+            # print(len(self.population))
             self.population.pop(s)
 
         return stolen
