@@ -112,7 +112,7 @@ class GeneticAlgorithm():
         for ISLAND in self.ISLANDS:
             #wybór rodziców (ruletka)
             parents = ISLAND.select(PARENTS_SIZE)
-            #krzyżowanie (TODO)
+            #krzyżowanie (OX)
             #metoda Single-Point Crossover
             children = ISLAND.crossover(parents)
             #utworzenie nowej populacji
