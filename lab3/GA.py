@@ -1,3 +1,4 @@
+from cmath import isnan
 from pickle import POP
 import sys
 import readData
@@ -11,7 +12,7 @@ NUKE_CHANCE = 0.001
 #ilość populacji usuniętej podczas wymierania
 NUKE_AMOUNT = 0.8
 #szansa na migrację
-MIGRATION_CHANCE = 1.00
+MIGRATION_CHANCE = 0.0
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
@@ -19,7 +20,7 @@ PARENTS_SIZE = int(POPULATION_SIZE/2)
 #ilość członków "elitarnych"
 ELITES = 3
 #szansa mutacji każdego osobnika
-MUTATION_CHANCE = 0.5
+MUTATION_CHANCE = 0.01
 #maksymalna ilość generacji danego osobnika
 LIFE_EXPECTANCY = 10
 
@@ -123,17 +124,20 @@ class GeneticAlgorithm():
             new_population = self.createPopulation(ISLAND.population,parents,children)
             ISLAND.population = new_population
             #mutowanie nowej populacji
+
             ISLAND.mutate(MUTATION_CHANCE)
+
+            print("best",ISLAND.name,"=",ISLAND.population[0].fc)
 
 
 def test():
-    file = "../lab1/TSP_Data/" + sys.argv[1]
+    file = sys.argv[1]
     if file[-4] == 'a':
         instance = readData.ReadData(file, True)
     else:
         instance = readData.ReadData(file)
 
-    GA = GeneticAlgorithm(1000,2,instance,0.5)
+    GA = GeneticAlgorithm(500,2,instance,0.5)
     GA.simulate()
 
 test()

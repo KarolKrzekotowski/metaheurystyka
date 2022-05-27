@@ -15,7 +15,7 @@ class Member():
 
     #wyświetl osobnika
     def print(self):
-        print(f"{self.perm}: {self.fc}")
+        print(f"{self.fc}")
     #funkcja porównująca
     def __lt__(self, other):
         return self.fc < other.fc
@@ -143,8 +143,8 @@ class Island():
 
         stolenIx.sort(reverse=True)
 
-        print(stolenIx)
-        print(self.population[0].perm, "hej")
+        #print(stolenIx)
+        #print(self.population[0].perm, "hej")
         for a, s in enumerate(stolenIx):
 
             # print(a)
@@ -154,7 +154,7 @@ class Island():
         return stolen
 
     #funkcja wstawia osobnika do posortowanej listy w czasie O(log(n))
-    def putInOrder(self, newMember):
+    def putInOrder2(self, newMember):
         ixs = 0
         ixe = len(self.population)-1
         while True:
@@ -176,6 +176,11 @@ class Island():
             self.population.insert(ixe+1,newMember)
         else:
             self.population.insert(ixe,newMember)
+    
+    def putInOrder(self, newMember):
+        self.population.append(newMember)
+        self.population.sort()
+
 
     #mutacja (każdy osobnik rozpatrzany osobno)
     # chance = szansa mutacji
@@ -192,7 +197,7 @@ class Island():
                 r1 = randint(0,self.instance.size-1)
                 r2 = randint(0,self.instance.size-1)
                 if r1>r2: (r1,r2) = (r2,r1)
-                newpath = Paths.swap(mb.perm,r1,r2)
+                newpath = Paths.invert(mb.perm,[r1,r2])
                 mb.perm = newpath
 
                 #wstaw ponownie
