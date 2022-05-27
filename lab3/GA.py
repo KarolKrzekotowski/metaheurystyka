@@ -6,13 +6,13 @@ import random
 import Island
 
 #rozmiar populacji na wyspach
-POPULATION_SIZE = 100
+POPULATION_SIZE = 20
 #szansa wydarzenia wymierania
 NUKE_CHANCE = 0.001
 #ilość populacji usuniętej podczas wymierania
-NUKE_AMOUNT = 0.8
+NUKE_AMOUNT = 0.75
 #szansa na migrację
-MIGRATION_CHANCE = 0.0
+MIGRATION_CHANCE = 0.002
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
@@ -22,7 +22,7 @@ ELITES = 3
 #szansa mutacji każdego osobnika
 MUTATION_CHANCE = 0.01
 #maksymalna ilość generacji danego osobnika
-LIFE_EXPECTANCY = 10
+LIFE_EXPECTANCY = 50
 
 class GeneticAlgorithm():
     def __init__(self, generations, islandNb, instance,r_cross,xmode):
@@ -30,6 +30,8 @@ class GeneticAlgorithm():
         self.generationNb = generations
         self.islandNb = islandNb
         self.ISLANDS = []
+        self.bestPerm = []
+        self.bestFC = sys.float_info.max
         self.instance = instance
         self.xmode = xmode
 
@@ -75,8 +77,11 @@ class GeneticAlgorithm():
 
     def simulate(self):
         for i in range(self.generationNb):
-            print(f"Gen {i}")
+            #print(f"Gen {i}")
             self.simulateGeneration()
+
+    def printBest(self):
+        print(f"[{self.bestFC}] {self.bestPerm}")
 
     def simulateGeneration(self):
         #nowa generacja
@@ -128,7 +133,11 @@ class GeneticAlgorithm():
 
             ISLAND.mutate(MUTATION_CHANCE)
 
-            print("best",ISLAND.name,"=",ISLAND.population[0].fc)
+            #print("best",ISLAND.name,"=",ISLAND.population[0].fc)
+            if ISLAND.population[0].fc < self.bestFC:
+                self.bestFC = ISLAND.population[0].fc
+                self.bestPerm = ISLAND.population[0].perm
+                print(f"{self.generation} new best: {self.bestFC}")
 
 
 def test():
@@ -142,5 +151,6 @@ def test():
     spx = 3
     GA = GeneticAlgorithm(500,2,instance,0.5,ox)
     GA.simulate()
+    GA.printBest()
 
 test()
