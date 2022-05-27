@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="wyniki">
+    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="naprawa stealMembers - powtórki">
+      <change afterPath="$PROJECT_DIR$/lab3/crossover.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/TSP/calcTour.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/TSP/calcTour.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/GA.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/GA.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/Island.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Island.py" afterDir="false" />
     </list>
@@ -67,7 +69,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Python tests for crossover.test">
     <configuration name="Python tests for GA.test" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="metaheurystyka" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,8 +85,24 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for crossover.test" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="metaheurystyka" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lab3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;crossover.test&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for crossover.test" />
         <item itemvalue="Python tests.Python tests for GA.test" />
       </list>
     </recent_temporary>
@@ -132,28 +150,9 @@
       <workItem from="1651849312877" duration="2228000" />
       <workItem from="1652892871710" duration="382000" />
       <workItem from="1653075310564" duration="5216000" />
-      <workItem from="1653253798562" duration="2982000" />
-    </task>
-    <task id="LOCAL-00001" summary="data">
-      <created>1647018134603</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1647018134603</updated>
-    </task>
-    <task id="LOCAL-00002" summary="readdata">
-      <created>1647025500040</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1647025500040</updated>
-    </task>
-    <task id="LOCAL-00003" summary="readdata">
-      <created>1647025595516</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1647025595516</updated>
+      <workItem from="1653253798562" duration="10232000" />
+      <workItem from="1653664782700" duration="3333000" />
+      <workItem from="1653683876002" duration="9051000" />
     </task>
     <task id="LOCAL-00004" summary="generowanie euc_2d">
       <created>1647121719776</created>
@@ -442,7 +441,63 @@
       <option name="project" value="LOCAL" />
       <updated>1651444913354</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="kżyżowanie">
+      <created>1653256865901</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1653256865902</updated>
+    </task>
+    <task id="LOCAL-00046" summary="kżyżowanie OX">
+      <created>1653262178807</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1653262178807</updated>
+    </task>
+    <task id="LOCAL-00047" summary="krzyżowanie OX">
+      <created>1653262391871</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1653262391871</updated>
+    </task>
+    <task id="LOCAL-00048" summary="krzyżowanie OX">
+      <created>1653262997415</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1653262997415</updated>
+    </task>
+    <task id="LOCAL-00049" summary="krzyżowanie OX">
+      <created>1653263164166</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1653263164166</updated>
+    </task>
+    <task id="LOCAL-00050" summary="krzyżowanie OX">
+      <created>1653263212430</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1653263212430</updated>
+    </task>
+    <task id="LOCAL-00051" summary="krzyżowanie OX">
+      <created>1653264019490</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1653264019490</updated>
+    </task>
+    <task id="LOCAL-00052" summary="naprawa stealMembers - powtórki">
+      <created>1653265919808</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1653265919808</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,9 +532,13 @@
     <MESSAGE value="katalogi" />
     <MESSAGE value="wstęp" />
     <MESSAGE value="wyniki" />
-    <option name="LAST_COMMIT_MESSAGE" value="wyniki" />
+    <MESSAGE value="kżyżowanie" />
+    <MESSAGE value="kżyżowanie OX" />
+    <MESSAGE value="krzyżowanie OX" />
+    <MESSAGE value="naprawa stealMembers - powtórki" />
+    <option name="LAST_COMMIT_MESSAGE" value="naprawa stealMembers - powtórki" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/metaheurystyka$.coverage" NAME=" Coverage Results" MODIFIED="1652892939747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab3" />
+    <SUITE FILE_PATH="coverage/metaheurystyka$.coverage" NAME=" Coverage Results" MODIFIED="1653691073864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab3" />
   </component>
 </project>

@@ -5,6 +5,7 @@ import krandom
 
 from copy import copy, deepcopy
 from Paths import fc
+from crossover import OX,PMX, SPX
 
 #klasa definiuje członka populacji
 class Member():
@@ -55,43 +56,10 @@ class Island():
 
         return selected
 
-    def create_child(self,p1, p2, r1, r2) -> [] :
-        # lista wypełniona -100
-        c1 = [-100] * len(p1)
-        # środek rodzica 2
-        c2_inside = p2[r1:r2 + 1]
-        # prawa ręka rodzica 2
-        c2_right = p2[r2 + 1:]
-        # lewa ręka rodzica 2
-        c2_left = p2[0:r1]
-        # right -> left -> inside
-        merged_c1 = c2_right + c2_left + c2_inside
 
-        # wpisanie wycięcie korpusu rodzica 1
-        for e in range(r1, r2 + 1):
-            c1[e] = p1[e]
-        # lista niepowtarzających się elementów
-        d1 = []
-        for i in merged_c1:
-            if i not in c1:
-                d1.append(i)
-        # wszycie prawej ręki do ciała dziecka
-
-        for i in range(r2 + 1, len(c1)):
-            c1[i] = d1[0]
-            d1.pop(0)
-        # wszycie lewej ręki do ciała dziecka
-
-        for i in range(r1):
-
-
-            c1[i] = d1[0]
-            d1.pop(0)
-
-        return c1
 
     #krzyżowanie osobników
-    def crossover(self,parents) -> [Member]:
+    def crossover(self,parents,xmode) -> [Member]:
         children = []
         r_cross = self.r_cross
         # typ OX - order crossover
@@ -109,15 +77,32 @@ class Island():
                     if p1 < p2:
                         break
 
+                if xmode == 1:
 
-                # dziecko 1
-                c1 = self.create_child(p[0].perm,p[1].perm,p1,p2)
-                c1 = Member(c1, fc(self.instance.dis_mat,c1), self.generation + self.lifeExpectancy)
-                children.append(c1)
-                # dziecko 2
-                c2 = self.create_child(p[1].perm,p[0].perm,p1,p2)
-                c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
-                children.append(c2)
+                    # dziecko 1
+                    c1 = OX(p[0].perm,p[1].perm,p1,p2)
+                    c1 = Member(c1, fc(self.instance.dis_mat,c1), self.generation + self.lifeExpectancy)
+                    children.append(c1)
+                    # dziecko 2
+                    c2 = OX(p[1].perm,p[0].perm,p1,p2)
+                    c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
+                    children.append(c2)
+                elif xmode == 2:
+
+                    c1,c2 = PMX(p[0].perm,p[1].perm,p1,p2)
+                    c1 = Member(c1, fc(self.instance.dis_mat, c1), self.generation + self.lifeExpectancy)
+                    children.append(c1)
+                    c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
+                    children.append(c2)
+                elif xmode == 3:
+                    c1 = SPX(p[0].perm,p[1].perm,p1)
+                    c1 = Member(c1, fc(self.instance.dis_mat, c1), self.generation + self.lifeExpectancy)
+                    children.append(c1)
+                    c2 = SPX(p[1].perm, p[0].perm, p1)
+                    c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
+                    children.append(c2)
+
+
 
 
 
@@ -176,7 +161,7 @@ class Island():
             self.population.insert(ixe+1,newMember)
         else:
             self.population.insert(ixe,newMember)
-    
+
     def putInOrder(self, newMember):
         self.population.append(newMember)
         self.population.sort()

@@ -25,12 +25,13 @@ MUTATION_CHANCE = 0.01
 LIFE_EXPECTANCY = 10
 
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance,r_cross):
+    def __init__(self, generations, islandNb, instance,r_cross,xmode):
         self.generation = 0
         self.generationNb = generations
         self.islandNb = islandNb
         self.ISLANDS = []
         self.instance = instance
+        self.xmode = xmode
 
 
         for i in range(islandNb):
@@ -117,9 +118,9 @@ class GeneticAlgorithm():
         for ISLAND in self.ISLANDS:
             #wybór rodziców (ruletka)
             parents = ISLAND.select(PARENTS_SIZE)
-            #krzyżowanie (OX)
-            #metoda Single-Point Crossover
-            children = ISLAND.crossover(parents)
+            #krzyżowanie (OX,PMX,SPX)
+
+            children = ISLAND.crossover(parents,self.xmode)
             #utworzenie nowej populacji
             new_population = self.createPopulation(ISLAND.population,parents,children)
             ISLAND.population = new_population
@@ -136,8 +137,10 @@ def test():
         instance = readData.ReadData(file, True)
     else:
         instance = readData.ReadData(file)
-
-    GA = GeneticAlgorithm(500,2,instance,0.5)
+    ox = 1
+    pmx = 2
+    spx = 3
+    GA = GeneticAlgorithm(500,2,instance,0.5,ox)
     GA.simulate()
 
 test()
