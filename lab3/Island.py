@@ -5,7 +5,7 @@ import krandom
 
 from copy import copy, deepcopy
 from Paths import fc
-from crossover import OX,PMX, SPX
+from crossover import OX,PMX, SPX, CX
 
 #klasa definiuje członka populacji
 class Member():
@@ -87,10 +87,14 @@ class Island():
                     c2 = OX(p[1].perm,p[0].perm,p1,p2)
                     c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
                     children.append(c2)
+
+
+
+
                 elif xmode == 2:
 
                     c1,c2 = PMX(p[0].perm,p[1].perm,p1,p2)
-                    c1 = Member(c1, fc(self.instance.dis_mat, c1), self.generation + self.lifeExpectancy)
+                    c1 = Member(c1, fc(self.instance.dis_mat,c1), self.generation + self.lifeExpectancy)
                     children.append(c1)
                     c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
                     children.append(c2)
@@ -100,6 +104,15 @@ class Island():
                     children.append(c1)
                     c2 = SPX(p[1].perm, p[0].perm, p1)
                     c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
+                    children.append(c2)
+                elif xmode == 4:
+
+                    c1,c2 = CX(p[0].perm,p[1].perm)
+
+                    c1 = Member(c1, fc(self.instance.dis_mat, c1), self.generation + self.lifeExpectancy)
+                    c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
+
+                    children.append(c1)
                     children.append(c2)
 
 

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="naprawa stealMembers - powtórki">
-      <change afterPath="$PROJECT_DIR$/lab3/crossover.py" afterDir="false" />
+    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="SPX,PMX">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab1/TSP/calcTour.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/TSP/calcTour.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/GA.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/GA.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/Island.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Island.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3/crossover.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/crossover.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,14 +151,8 @@
       <workItem from="1653075310564" duration="5216000" />
       <workItem from="1653253798562" duration="10232000" />
       <workItem from="1653664782700" duration="3333000" />
-      <workItem from="1653683876002" duration="9051000" />
-    </task>
-    <task id="LOCAL-00004" summary="generowanie euc_2d">
-      <created>1647121719776</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1647121719776</updated>
+      <workItem from="1653683876002" duration="9279000" />
+      <workItem from="1653777861013" duration="3303000" />
     </task>
     <task id="LOCAL-00005" summary="generowanie euc_2d">
       <created>1647126229724</created>
@@ -497,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653265919808</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="SPX,PMX">
+      <created>1653695386862</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1653695386862</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +536,8 @@
     <MESSAGE value="kżyżowanie OX" />
     <MESSAGE value="krzyżowanie OX" />
     <MESSAGE value="naprawa stealMembers - powtórki" />
-    <option name="LAST_COMMIT_MESSAGE" value="naprawa stealMembers - powtórki" />
+    <MESSAGE value="SPX,PMX" />
+    <option name="LAST_COMMIT_MESSAGE" value="SPX,PMX" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/metaheurystyka$.coverage" NAME=" Coverage Results" MODIFIED="1653691073864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab3" />
