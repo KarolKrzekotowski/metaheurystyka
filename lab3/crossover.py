@@ -98,20 +98,7 @@ def SPX(p1,p2,point):
             c.append(p2[i])
     return c
 
-# cycle crossover 2(CX2)
-def indexOf(arr,x):
-    for a in range(0,arr.__len__()):
-        if arr[a] == x:
-            return a
-    return -1
-
-def findUnusedIndexValues(parent,offspring):
-    res = list()
-    for a in parent:
-        if indexOf(offspring,a) == -1:
-            res.append(a)
-    return res
-
+# cycle crossover(CX)
 def CX( parent1, parent2 ):
     cycles = [-1] * len(parent1)
     cycle_no = 1
