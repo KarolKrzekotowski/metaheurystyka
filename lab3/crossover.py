@@ -102,7 +102,8 @@ def SPX(p1,p2,point):
 def CX( parent1, parent2 ):
     cycles = [-1] * len(parent1)
     cycle_no = 1
-    cyclestart = (i for i, v in enumerate(cycles) if v < 0)
+    cyclestart = [-1] * len(parent1)
+
     for pos in cyclestart:
         while cycles[pos] < 0:
             cycles[pos] = cycle_no
