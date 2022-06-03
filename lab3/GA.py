@@ -1,9 +1,9 @@
-from cmath import isnan
-from pickle import POP
+
 import sys
 import readData
 import random
 import Island
+import Tests
 
 #rozmiar populacji na wyspach
 POPULATION_SIZE = 20
@@ -25,20 +25,23 @@ MUTATION_CHANCE = 0.01
 LIFE_EXPECTANCY = 50
 
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance,r_cross,xmode):
+    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert):
         self.generation = 0
         self.generationNb = generations
         self.islandNb = islandNb
         self.ISLANDS = []
         self.bestPerm = []
+        self.Improvements = []
         self.bestFC = sys.float_info.max
         self.instance = instance
+        self.useInvert = useInvert
         self.xmode = xmode
 
 
         for i in range(islandNb):
             self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,LIFE_EXPECTANCY, "Wyspa "+str(i)))
 
+    # utwórz nieposortowaną populację
     def createPopulation(self, population, parents, children):
         #bierzemy podział elity + 1:2:2
         newPopulation = []
@@ -72,13 +75,13 @@ class GeneticAlgorithm():
                 newPopulation.append(population[r])
                 remaining-=1
 
-        newPopulation.sort()
         return newPopulation
 
     def simulate(self):
         for i in range(self.generationNb):
             #print(f"Gen {i}")
             self.simulateGeneration()
+        return self.Improvements
 
     def printBest(self):
         print(f"[{self.bestFC}] {self.bestPerm}")
@@ -88,7 +91,6 @@ class GeneticAlgorithm():
         self.generation += 1
         for ISLAND in self.ISLANDS:
             ISLAND.generation = self.generation
-
 
         #wymieranie najgorszej wyspy
         if random.random() < NUKE_CHANCE:
@@ -115,9 +117,11 @@ class GeneticAlgorithm():
                 migrantsA = self.ISLANDS[r1].stealMembers(MIGRATING_MEMBERS)
                 migrantsB = self.ISLANDS[r2].stealMembers(MIGRATING_MEMBERS)
                 for m in migrantsB:
-                    self.ISLANDS[r1].putInOrder(m)
+                    self.ISLANDS[r1].population.append(m)
+                self.ISLANDS[r1].population.sort()
                 for m in migrantsA:
-                    self.ISLANDS[r2].putInOrder(m)
+                    self.ISLANDS[r2].population.append(m)
+                self.ISLANDS[r2].population.sort()
 
 
         for ISLAND in self.ISLANDS:
@@ -126,17 +130,21 @@ class GeneticAlgorithm():
             #krzyżowanie (OX,PMX,SPX)
 
             children = ISLAND.crossover(parents,self.xmode)
-            #utworzenie nowej populacji
+            #utworzenie nowej populacji (nieposortowana)
             new_population = self.createPopulation(ISLAND.population,parents,children)
             ISLAND.population = new_population
-            #mutowanie nowej populacji
+            #mutowanie nowej populacji (nieposortowana)
+            ISLAND.mutate(MUTATION_CHANCE, self.useInvert)
 
-            ISLAND.mutate(MUTATION_CHANCE)
+            #sortowanie populacji
+            ISLAND.population.sort()
+            
 
             #print("best",ISLAND.name,"=",ISLAND.population[0].fc)
             if ISLAND.population[0].fc < self.bestFC:
                 self.bestFC = ISLAND.population[0].fc
                 self.bestPerm = ISLAND.population[0].perm
+                self.Improvements.append([self.generation,self.bestFC])
                 print(f"{self.generation} new best: {self.bestFC}")
 
 
@@ -150,8 +158,9 @@ def test():
     pmx = 2
     spx = 3
     CX = 4
-    GA = GeneticAlgorithm(20000,3,instance,0.5,CX)
-    GA.simulate()
+    GA = GeneticAlgorithm(1000,3,instance,0.5,ox,True)
+    imp = GA.simulate()
     GA.printBest()
+    print(imp)
 
 test()

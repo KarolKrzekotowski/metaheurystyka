@@ -1,4 +1,5 @@
 from random import randint,random
+from xmlrpc.client import boolean
 from Roulette import Roulette
 import Paths
 import krandom
@@ -55,8 +56,6 @@ class Island():
             selected.append(self.population[ix])
 
         return selected
-
-
 
     #krzyżowanie osobników
     def crossover(self,parents,xmode) -> [Member]:
@@ -151,29 +150,6 @@ class Island():
 
         return stolen
 
-    #funkcja wstawia osobnika do posortowanej listy w czasie O(log(n))
-    def putInOrder2(self, newMember):
-        ixs = 0
-        ixe = len(self.population)-1
-        while True:
-            
-            if ixe-ixs <= 1: break
-            mid = int((ixs+ixe)/2)
-            if self.population[mid].fc < newMember.fc:
-                ixs = mid
-            elif self.population[mid].fc > newMember.fc:
-                ixe = mid
-            else:
-                break
-        sfc = self.population[ixs].fc
-        efc = self.population[ixe].fc
-
-        if sfc > newMember.fc:
-            self.population.insert(ixs,newMember)
-        elif efc < newMember.fc:
-            self.population.insert(ixe+1,newMember)
-        else:
-            self.population.insert(ixe,newMember)
 
     def putInOrder(self, newMember):
         self.population.append(newMember)
@@ -182,25 +158,30 @@ class Island():
 
     #mutacja (każdy osobnik rozpatrzany osobno)
     # chance = szansa mutacji
-    def mutate(self, chance:float):
+    def mutate(self, chance:float, useInvert:boolean):
         for i in range(self.populationSize):
             if random() < chance:
-                #print(f"Mutation of member {i}!")
+
+                #print(f"Mutation of member {i}: {self.population[i].fc}!")
 
                 #wyizoluj osobnika
                 mb = self.population[i]
-                self.population.pop(i)
+                #self.population.pop(i)
                 
                 #mutacja
                 r1 = randint(0,self.instance.size-1)
                 r2 = randint(0,self.instance.size-1)
                 if r1>r2: (r1,r2) = (r2,r1)
-                newpath = Paths.invert(mb.perm,[r1,r2])
+
+                if useInvert:
+                    newpath = Paths.invert(mb.perm,[r1,r2])
+                else:
+                    newpath = Paths.swap(mb.perm,r1,r2)
                 mb.perm = newpath
 
                 #wstaw ponownie
                 mb.fc = Paths.fc(self.instance.dis_mat,mb.perm)
-                self.putInOrder(mb)
+                #self.putInOrder(mb)
         pass
     
     #zdarzenie wymierania najsłabszych osobników na wyspie
@@ -211,6 +192,15 @@ class Island():
         for _ in range(nukedNb):
             self.population.pop(-1)
         self.generateMembers(nukedNb)
+
+    #funkcja sprawdza czy populacja jest w kolejności rosnącej
+    def isPopulationInOrder(self):
+        m = self.population[0]
+        for i in range(1,len(self.population)):
+            if m.fc > self.population[i].fc: return False
+            m = self.population[i]
+        return True
+        
     
     #zdarzenie wymierania losowych osobników na wyspie
     # chance - szansa na eksterminację
