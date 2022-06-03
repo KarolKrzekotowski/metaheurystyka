@@ -3,6 +3,7 @@ from xmlrpc.client import boolean
 from Roulette import Roulette
 import Paths
 import krandom
+import nearestNeighbour
 
 from copy import copy, deepcopy
 from Paths import fc
@@ -47,6 +48,36 @@ class Island():
             self.population.append(newMember)
         self.population.sort()
         #print(f"Welcome {amount} new members to island {self.name}!")
+
+    def generateMembersNN(self, amount, useInvert):
+        newMembers = []
+
+        #generuj
+        for _ in range(amount):
+            pt = randint(0,self.instance.size-1)
+            path, _ = nearestNeighbour.run(self.instance.size,self.instance.dis_mat,pt)
+            newMembers.append(path)
+
+        #poddaj mutacji/om
+        for i in range(amount):
+            if random() < 0.5:
+                mut = randint(1,5)
+                for _ in range(mut):
+                    r1 = randint(0,self.instance.size-1)
+                    r2 = randint(0,self.instance.size-1)
+                    if r1>r2: (r1,r2) = (r2,r1)
+                    if useInvert:
+                        newpath = Paths.invert(newMembers[i].perm,[r1,r2])
+                    else:
+                        newpath = Paths.swap(newMembers[i].perm,r1,r2)
+                    newMembers[i].perm = newpath
+                    newMembers[i].fc = Paths.fc(self.instance.dis_mat,newMembers[i].perm)
+
+        for m in newMembers:
+            self.population.append(m)
+        self.population.sort()
+            
+        
 
     #funkcja wykonuje selekcję członków za pomocą ruletki
     def select(self, amount):

@@ -128,8 +128,8 @@ class GeneticAlgorithm():
             #wybór rodziców (ruletka)
             parents = ISLAND.select(PARENTS_SIZE)
             #krzyżowanie (OX,PMX,SPX)
-
             children = ISLAND.crossover(parents,self.xmode)
+            
             #utworzenie nowej populacji (nieposortowana)
             new_population = self.createPopulation(ISLAND.population,parents,children)
             ISLAND.population = new_population
