@@ -78,4 +78,4 @@ def fc(mat,path):
 
 #wartość PRD
 def PRD(fx,fref):
-    return (fx-fref)/fref
+    return (fx-fref)*100/fref

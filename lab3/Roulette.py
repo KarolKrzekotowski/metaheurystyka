@@ -4,7 +4,7 @@ from random import randint
 #rozkład przedziałów ruletki (musi sumować się do 100)
 rouletteInterval = [10,20,50,20]
 #stotunek wybrania dla danych przedziałów
-rouletteChance = [1,1,1,1]
+rouletteChance = [4,2,1,1]
 
 class Roulette():
     def __init__(self, size):

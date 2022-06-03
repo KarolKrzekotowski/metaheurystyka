@@ -1,0 +1,43 @@
+A. Analiza złożonościowa w programie (zależność od N)
+
+1. porównanie metod krzyżowania (OX, SPX, CX)
+    - czas działania
+    - poprawa wyniku a ilość generacji (bardzo dużo powtórzeń, wybrane grafy)
+    - Schemat:
+        OX: dla generacja in {250,500,750,....,2000}
+        OY: najlepszy dotychczasowy wynik generacji
+        1 zbiór danych na metodę
+    - POP: 20, NC: 0.002, NA: 0.75 MigC: 0.01, MM: (PopS/10), ParS: (PopS/2), Eli: (PopS/15), MutC: 0.01, LEx: 50
+
+2. Zależność wysp ( N_Wysp*Iteracje = const)
+    - poprawa wyniku a ilość generacji (bardzo dużo powtórzeń, wybrane grafy)
+    - Schemat:
+        OX: dla generacja in {250,500,750,....,2000}
+        OY: najlepszy dotychczasowy wynik generacji
+        1 zbiór danych na ilość wysp
+    - POP: 20, NC: 0.002, NA: 0.75 MigC: 0.01, MM: (PopS/10), ParS: (PopS/2), Eli: (PopS/15), MutC: 0.01, LEx: 50
+
+3. Szansa mutacji a poprawa wyniku
+    - poprawa wyniku a ilość generacji
+    - full krandom
+    - POP: 20, NC: 0.002, NA: 0.75 MigC: 0.01, MM: (PopS/10), ParS: (PopS/2), Eli: (PopS/15), LEx: 50
+    - Schemat:
+        OX: dla generacja in {250,500,750,....,2000}
+        OY: najlepszy dotychczasowy wynik
+        1 zbiór danych na szansę mutacji in {0, 0.005, 0.01, 0.02, 0.05, 0.1}
+        
+        
+4. Stosunek NN a krandom w populacji początkowej
+    - OX: Stosunek: [0,1] co 0.1
+    - OY: najlepszy wynik po 10'000 iteracjach
+    - Schemat pliku (10 prób), po 1 pliku na graf:
+        KOLuMNY: (PRD) Najlepszy wynik, najsłabszy, średnia
+        WIERSZE: stosunki
+        
+5. Długość życia
+    - OX: 20 do 100 co 20
+    - OY: najlepszy wynik po 10'000 iteracjach
+
+Statystyczne:
+    CX vs OX - dają takie same wyniki
+    

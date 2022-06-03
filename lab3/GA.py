@@ -8,11 +8,11 @@ import Tests
 #rozmiar populacji na wyspach
 POPULATION_SIZE = 20
 #szansa wydarzenia wymierania
-NUKE_CHANCE = 0.001
+NUKE_CHANCE = 0.005
 #ilość populacji usuniętej podczas wymierania
 NUKE_AMOUNT = 0.75
 #szansa na migrację
-MIGRATION_CHANCE = 0.002
+MIGRATION_CHANCE = 0.02
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
@@ -101,7 +101,7 @@ class GeneticAlgorithm():
                 if ifc > highest:
                     highest = ifc
                     hix = i
-            print(f"Wymieranie na wyspie: {self.ISLANDS[hix].name}")
+            #print(f"Wymieranie na wyspie: {self.ISLANDS[hix].name}")
             self.ISLANDS[hix].nukeRandom(0.8)
 
         #migracja pomiędzy dwoma wyspami
@@ -113,7 +113,7 @@ class GeneticAlgorithm():
             r2 = random.randint(0,self.islandNb-1)
 
             if r1 != r2:
-                print(f"Migracja pomiędzy {self.ISLANDS[r1].name} a {self.ISLANDS[r2].name}")
+                #print(f"Migracja pomiędzy {self.ISLANDS[r1].name} a {self.ISLANDS[r2].name}")
                 migrantsA = self.ISLANDS[r1].stealMembers(MIGRATING_MEMBERS)
                 migrantsB = self.ISLANDS[r2].stealMembers(MIGRATING_MEMBERS)
                 for m in migrantsB:
@@ -157,10 +157,10 @@ def test():
     ox = 1
     pmx = 2
     spx = 3
-    CX = 4
-    GA = GeneticAlgorithm(10000,3,instance,0.5,ox,True)
+    cx = 4
+    GA = GeneticAlgorithm(10000,3,instance,0.5,cx,True)
     imp = GA.simulate()
     GA.printBest()
     print(imp)
-
-test()
+if __name__ == 'main':
+    test()
