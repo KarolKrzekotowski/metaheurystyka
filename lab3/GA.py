@@ -158,7 +158,7 @@ def test():
     pmx = 2
     spx = 3
     CX = 4
-    GA = GeneticAlgorithm(1000,3,instance,0.5,ox,True)
+    GA = GeneticAlgorithm(10000,3,instance,0.5,ox,True)
     imp = GA.simulate()
     GA.printBest()
     print(imp)

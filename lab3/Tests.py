@@ -8,7 +8,7 @@ def getValueAt(gen,Improvements):
         if mb[0]>gen:
             break
         ix += 1
-    print(ix)
+        
     return Improvements[ix][1]
 
 def getFinal(Improvements):

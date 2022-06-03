@@ -35,7 +35,7 @@ class Island():
         self.roulette = Roulette(self.populationSize)
         self.instance = instance
         self.lifeExpectancy = lifeExpectancy
-        self.generateMembers(self.populationSize)
+        self.generateMembersNN(self.populationSize,True)
         self.r_cross = r_cross
         
         
@@ -55,8 +55,9 @@ class Island():
         #generuj
         for _ in range(amount):
             pt = randint(0,self.instance.size-1)
-            path, _ = nearestNeighbour.run(self.instance.size,self.instance.dis_mat,pt)
-            newMembers.append(path)
+            path, pfc = nearestNeighbour.run(self.instance.size,self.instance.dis_mat,pt)
+            newMember = Member(path,pfc,self.generation+self.lifeExpectancy)
+            newMembers.append(newMember)
 
         #poddaj mutacji/om
         for i in range(amount):
@@ -222,7 +223,7 @@ class Island():
         nukedNb = int(self.populationSize * chance)
         for _ in range(nukedNb):
             self.population.pop(-1)
-        self.generateMembers(nukedNb)
+        self.generateMembersNN(nukedNb,True)
 
     #funkcja sprawdza czy populacja jest w kolejności rosnącej
     def isPopulationInOrder(self):
@@ -241,7 +242,7 @@ class Island():
         for i in range(nukedNb):
             r = randint(0,self.populationSize-i-1)
             self.population.pop(r)
-        self.generateMembers(nukedNb)
+        self.generateMembersNN(nukedNb,True)
     
     #oblicz "wartość" wyspy (sumę funkcji celu populacji)
     def islandValue(self):
