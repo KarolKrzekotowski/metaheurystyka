@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="CX">
+      <change afterPath="$PROJECT_DIR$/lab3/test1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab3/test3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab3/test4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/GA.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/GA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3/Island.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Island.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3/Roulette.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Roulette.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3/Tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/crossover.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/crossover.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,14 +157,10 @@
       <workItem from="1653253798562" duration="10232000" />
       <workItem from="1653664782700" duration="3333000" />
       <workItem from="1653683876002" duration="9279000" />
-      <workItem from="1653777861013" duration="4380000" />
-    </task>
-    <task id="LOCAL-00007" summary="generowanie lower i full matrix">
-      <created>1647132630872</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1647132630872</updated>
+      <workItem from="1653777861013" duration="4404000" />
+      <workItem from="1654269262316" duration="1443000" />
+      <workItem from="1654509014905" duration="3080000" />
+      <workItem from="1654512294101" duration="12753000" />
     </task>
     <task id="LOCAL-00008" summary="generowanie lower i full matrix">
       <created>1647132709593</created>
@@ -496,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653781328372</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="CX">
+      <created>1653782243937</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1653782243937</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

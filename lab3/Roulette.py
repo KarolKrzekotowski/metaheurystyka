@@ -40,8 +40,8 @@ class Roulette():
         self.sum += s
         self.ivlRngs.append(s)
         self.ivlMbs.append(remaining)
-        print(self.ivlRngs)
-        print(self.ivlMbs)
+        # print(self.ivlRngs)
+        # print(self.ivlMbs)
     
     #pobierz jeden element z ruletki
     def getOne(self):

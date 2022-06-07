@@ -39,24 +39,20 @@ def PMX(parent1,parent2,firstCrossPoint,secondCrossPoint):
     parent1MiddleCross = parent1[firstCrossPoint:secondCrossPoint]
     parent2MiddleCross = parent2[firstCrossPoint:secondCrossPoint]
 
-    print(parent1)
-    print(parent2)
-    print(firstCrossPoint)
-    print(secondCrossPoint)
-    print(sys.getrecursionlimit())
+
     sys.setrecursionlimit(1000000)
     temp_child1 = parent1[:firstCrossPoint] + parent2MiddleCross + parent1[secondCrossPoint:]
     temp_child2 = parent2[:firstCrossPoint] + parent1MiddleCross + parent2[secondCrossPoint:]
     relations = []
     for i in range(len(parent1MiddleCross)):
         relations.append([parent2MiddleCross[i], parent1MiddleCross[i]])
-    print('hej1')
+
     c1 = recursion1(temp_child1,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross,relations,parent1,parent2)
-    print('hej2')
+
     for i in relations:
         i = i.reverse()
     c2 = recursion1(temp_child2,firstCrossPoint,secondCrossPoint,parent2MiddleCross,parent1MiddleCross,relations,parent2,parent1)
-    print('hej3')
+
     return c1,c2
 
 
@@ -113,12 +109,11 @@ def CX( parent1, parent2 ):
     child2 = [parent2[i] if n % 2 else parent1[i] for i, n in enumerate(cycles)]
     return child1,child2
 
-if __name__ == 'main':
+if __name__ == '__main__':
 
     a = [1,2,3,4,5,6,7,8,9,10]
     b = [4,3,1,2,8,7,10,5,6,9]
     p = 3
     q = 6
     x ,y = PMX(a,b,p,q)
-    print(x)
-    print(y)
+

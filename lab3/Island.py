@@ -18,14 +18,15 @@ class Member():
 
     #wyświetl osobnika
     def print(self):
-        print(f"{self.fc}")
+        # print(f"{self.fc}")
+        ...
     #funkcja porównująca
     def __lt__(self, other):
         return self.fc < other.fc
 
 
 class Island():
-    def __init__(self, populationSize, instance,r_cross, lifeExpectancy,name="Unnamed"):
+    def __init__(self, populationSize, instance,r_cross, lifeExpectancy,name="Unnamed",ratio=0.5):
         #rozmiar populacji początkowej
         self.populationSize = populationSize
         #populacja
@@ -35,11 +36,14 @@ class Island():
         self.roulette = Roulette(self.populationSize)
         self.instance = instance
         self.lifeExpectancy = lifeExpectancy
+        self.ratio = ratio
         self.generateMembers(self.populationSize,True)
         self.r_cross = r_cross
+
         
     def generateMembers(self, amount, useinvert):
-        a1 = int(amount/2)
+
+        a1 = int(amount*self.ratio)
         a2 = amount - a1
         self.generateMembersKR(a1)
         self.generateMembersNN(a2,useinvert)

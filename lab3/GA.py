@@ -8,11 +8,11 @@ import Tests
 #rozmiar populacji na wyspach
 POPULATION_SIZE = 20
 #szansa wydarzenia wymierania
-NUKE_CHANCE = 0.005
+NUKE_CHANCE = 0.002
 #ilość populacji usuniętej podczas wymierania
 NUKE_AMOUNT = 0.75
 #szansa na migrację
-MIGRATION_CHANCE = 0.02
+MIGRATION_CHANCE = 0.01
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
@@ -20,12 +20,14 @@ PARENTS_SIZE = int(POPULATION_SIZE/2)
 #ilość członków "elitarnych"
 ELITES = 3
 #szansa mutacji każdego osobnika
-MUTATION_CHANCE = 0.01
+# MUTATION_CHANCE = 0.01
 #maksymalna ilość generacji danego osobnika
 LIFE_EXPECTANCY = 50
+# generacja co 250 - najlepszy dotychczas
+gen_best = []
 
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert):
+    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert,MUTATION_CHANCE=0.01,ratio=0.5):
         self.generation = 0
         self.generationNb = generations
         self.islandNb = islandNb
@@ -36,10 +38,11 @@ class GeneticAlgorithm():
         self.instance = instance
         self.useInvert = useInvert
         self.xmode = xmode
+        self.MUTATION_CHANCE = MUTATION_CHANCE
 
 
         for i in range(islandNb):
-            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,LIFE_EXPECTANCY, "Wyspa "+str(i)))
+            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,LIFE_EXPECTANCY, "Wyspa "+str(i),ratio=ratio))
 
     # utwórz nieposortowaną populację
     def createPopulation(self, population, parents, children):
@@ -85,6 +88,9 @@ class GeneticAlgorithm():
 
     def printBest(self):
         print(f"[{self.bestFC}] {self.bestPerm}")
+
+    def GetGenBest(self):
+        return gen_best
 
     def simulateGeneration(self):
         #nowa generacja
@@ -134,7 +140,7 @@ class GeneticAlgorithm():
             new_population = self.createPopulation(ISLAND.population,parents,children)
             ISLAND.population = new_population
             #mutowanie nowej populacji (nieposortowana)
-            ISLAND.mutate(MUTATION_CHANCE, self.useInvert)
+            ISLAND.mutate(self.MUTATION_CHANCE, self.useInvert)
 
             #sortowanie populacji
             ISLAND.population.sort()
@@ -145,7 +151,13 @@ class GeneticAlgorithm():
                 self.bestFC = ISLAND.population[0].fc
                 self.bestPerm = ISLAND.population[0].perm
                 self.Improvements.append([self.generation,self.bestFC])
-                print(f"{self.generation} new best: {self.bestFC}")
+                #do prezentacji
+                # print(f"{self.generation} new best: {self.bestFC}")
+        if self.generation % 250 == 0 and self.generation > 1:
+
+            gen_best.append(self.bestFC)
+
+
 
 
 def test():
@@ -158,9 +170,12 @@ def test():
     pmx = 2
     spx = 3
     cx = 4
+
     GA = GeneticAlgorithm(10000,3,instance,0.5,cx,True)
+
     imp = GA.simulate()
-    GA.printBest()
-    print(imp)
-if __name__ == 'main':
+    # GA.printBest()
+    # print(imp)
+    print(imp[-1][1])
+if __name__ == '__main__':
     test()

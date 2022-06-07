@@ -13,3 +13,4 @@ def getValueAt(gen,Improvements):
 
 def getFinal(Improvements):
     return Improvements[-1][1]
+
