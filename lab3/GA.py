@@ -1,7 +1,9 @@
 
 import sys
+from xmlrpc.client import boolean
 import readData
 import random
+from Paths import PRD
 import Island
 
 #rozmiar populacji na wyspach
@@ -80,10 +82,12 @@ class GeneticAlgorithm():
 
         return newPopulation
 
-    def simulate(self):
+    def simulate(self,bestSolution=0,debug:boolean=False):
         for i in range(self.generationNb):
             #print(f"Gen {i}")
-            self.simulateGeneration()
+            self.simulateGeneration(bestSolution,debug)
+        if debug:
+            print(self.bestPerm)
         return self.Improvements
 
     def printBest(self):
@@ -92,7 +96,7 @@ class GeneticAlgorithm():
     def GetGenBest(self):
         return gen_best
 
-    def simulateGeneration(self):
+    def simulateGeneration(self,bestSolution=0,debug:boolean=False):
         #nowa generacja
         self.generation += 1
         for ISLAND in self.ISLANDS:
@@ -152,7 +156,10 @@ class GeneticAlgorithm():
                 self.bestPerm = ISLAND.population[0].perm
                 self.Improvements.append([self.generation,self.bestFC])
                 #do prezentacji
-                # print(f"{self.generation} new best: {self.bestFC}")
+                if debug:
+                    prd = PRD(self.bestFC,bestSolution)
+                    print(f"{self.generation}\t{self.bestFC}\t{prd:.2f}%")
+
         if self.generation % 250 == 0 and self.generation > 1:
 
             gen_best.append(self.bestFC)
@@ -171,9 +178,9 @@ def test():
     spx = 3
     cx = 4
 
-    GA = GeneticAlgorithm(10000,3,instance,0.5,cx,True)
+    GA = GeneticAlgorithm(10000,1,instance,0.5,cx,True,ratio=0.25)
 
-    imp = GA.simulate()
+    imp = GA.simulate(7542,True)
     # GA.printBest()
     # print(imp)
     print(imp[-1][1])
