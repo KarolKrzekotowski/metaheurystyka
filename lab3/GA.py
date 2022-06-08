@@ -3,7 +3,6 @@ import sys
 import readData
 import random
 import Island
-import Tests
 
 #rozmiar populacji na wyspach
 POPULATION_SIZE = 20
@@ -22,12 +21,12 @@ ELITES = 3
 #szansa mutacji każdego osobnika
 # MUTATION_CHANCE = 0.01
 #maksymalna ilość generacji danego osobnika
-LIFE_EXPECTANCY = 50
+#LIFE_EXPECTANCY = 50
 # generacja co 250 - najlepszy dotychczas
 gen_best = []
 
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert,MUTATION_CHANCE=0.01,ratio=0.5):
+    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert,MUTATION_CHANCE=0.01,ratio=0.5,LIFE_EXPECTANCY=50):
         self.generation = 0
         self.generationNb = generations
         self.islandNb = islandNb
@@ -39,10 +38,11 @@ class GeneticAlgorithm():
         self.useInvert = useInvert
         self.xmode = xmode
         self.MUTATION_CHANCE = MUTATION_CHANCE
+        self.LIFE_EXPECTANCY = LIFE_EXPECTANCY
 
 
         for i in range(islandNb):
-            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,LIFE_EXPECTANCY, "Wyspa "+str(i),ratio=ratio))
+            self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,self.LIFE_EXPECTANCY, "Wyspa "+str(i),ratio=ratio))
 
     # utwórz nieposortowaną populację
     def createPopulation(self, population, parents, children):
