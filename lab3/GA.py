@@ -115,7 +115,7 @@ class GeneticAlgorithm():
             self.ISLANDS[hix].nukeRandom(0.8)
 
         #migracja pomiędzy dwoma wyspami
-        #TODO duplikaty mogą wywalić program
+
         x = random.random()
 
         if x < MIGRATION_CHANCE:

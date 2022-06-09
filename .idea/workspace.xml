@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="CX">
-      <change afterPath="$PROJECT_DIR$/lab3/test1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab3/test3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab3/test4.py" afterDir="false" />
+    <list default="true" id="d657126f-edb6-4a29-bd03-3e5dab8dbafe" name="Changes" comment="testy">
+      <change afterPath="$PROJECT_DIR$/lab3/prezentacja.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab3/GA.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/GA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab3/Island.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Island.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab3/Roulette.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Roulette.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab3/Tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/Tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab3/crossover.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab3/crossover.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,13 +155,8 @@
       <workItem from="1654269262316" duration="1443000" />
       <workItem from="1654509014905" duration="3080000" />
       <workItem from="1654512294101" duration="12753000" />
-    </task>
-    <task id="LOCAL-00008" summary="generowanie lower i full matrix">
-      <created>1647132709593</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1647132709593</updated>
+      <workItem from="1654587787159" duration="106000" />
+      <workItem from="1654815853334" duration="2614000" />
     </task>
     <task id="LOCAL-00009" summary="zmiana czytania plików, komentarze do funkcji">
       <created>1647463914510</created>
@@ -505,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653782243937</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="testy">
+      <created>1654587851348</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1654587851348</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +542,8 @@
     <MESSAGE value="naprawa stealMembers - powtórki" />
     <MESSAGE value="SPX,PMX" />
     <MESSAGE value="CX" />
-    <option name="LAST_COMMIT_MESSAGE" value="CX" />
+    <MESSAGE value="testy" />
+    <option name="LAST_COMMIT_MESSAGE" value="testy" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/metaheurystyka$.coverage" NAME=" Coverage Results" MODIFIED="1653691073864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab3" />
