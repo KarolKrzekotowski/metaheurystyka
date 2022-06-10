@@ -2,6 +2,7 @@
 from GA import GeneticAlgorithm
 import readData
 import time
+from scipy.stats import wilcoxon
 
 tsp_files = ['berlin52.tsp', 'ch150.tsp', 'gr48.tsp', 'pr107.tsp']
 atsp_files = ['ftv70.atsp', 'br17.atsp', 'ft53.atsp', 'ftv170.atsp']
@@ -132,5 +133,50 @@ def testTC():
                 data.write(";")
             
             data.write("\n")
-test2()
+#test2()
+mig_files = ['berlin52.tsp']
+def testMIG():
+    REPEATS = 50
+    with open(f"testNOEXT",'w') as data:
 
+        for f in mig_files:
+            print(f"Starting sims for {f}")
+            instance = readData.ReadData('../lab1/TSP_Data/'+ f)
+            results = []
+
+            for j in range(REPEATS):
+                ga = GeneticAlgorithm(5000,3,instance,0.5,4,True,ratio=1.0)
+                res = ga.simulate()
+                print(getFinal(res))
+                results.append(getFinal(res))
+            
+            data.write(str(f))
+            data.write(";")
+
+            for t in results:
+                data.write(str(t))
+                data.write(";")
+            
+            data.write("\n")
+
+def testWil(d1,d2):
+    with open(d1) as f1:
+        for l in f1:
+            data1 = l.strip().split(";")
+    with open(d2) as f2:
+        for l in f2:
+            data2 = l.strip().split(";")
+
+    data1.pop(0)
+    data1.pop(-1)
+    data2.pop(0)
+    data2.pop(-1)
+
+    for i in range(len(data1)):
+        data1[i] = int(data1[i])
+        data2[i] = int(data2[i])
+
+    w,p = wilcoxon(data1,data2)
+    print(w,p)
+
+#testWil('testNOEXT','testEXT')
