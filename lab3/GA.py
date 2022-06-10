@@ -1,3 +1,4 @@
+#Klasa GeneticAlgorithm odpowiada za zarządzanie wyspami podczas symulacji
 
 import sys
 from xmlrpc.client import boolean
@@ -9,40 +10,55 @@ import Island
 #rozmiar populacji na wyspach
 POPULATION_SIZE = 20
 #szansa wydarzenia wymierania
-NUKE_CHANCE = 0.002
+NUKE_CHANCE = 0.001
 #ilość populacji usuniętej podczas wymierania
 NUKE_AMOUNT = 0.75
 #szansa na migrację
-MIGRATION_CHANCE = 0.01
+MIGRATION_CHANCE = 0.02
 #ilość migrujących osobników
 MIGRATING_MEMBERS = int(POPULATION_SIZE/10)
 #ilość rodziców
 PARENTS_SIZE = int(POPULATION_SIZE/2)
 #ilość członków "elitarnych"
 ELITES = 3
-#szansa mutacji każdego osobnika
-# MUTATION_CHANCE = 0.01
-#maksymalna ilość generacji danego osobnika
-#LIFE_EXPECTANCY = 50
-# generacja co 250 - najlepszy dotychczas
+#gromadzenie najlepszych wyników
 gen_best = []
 
+
 class GeneticAlgorithm():
-    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert,MUTATION_CHANCE=0.01,ratio=0.5,LIFE_EXPECTANCY=50):
-        self.generation = 0
+    '''   
+    Klasa przyjmuje następujące parametry:
+        generations - liczba generacji
+        islandNb - liczba wysp
+        instance - odniesienie do instancji grafu i macierzy
+        r_cross - szansa krzyżowania rodziców
+        xmode - tryb krzyżowania
+        useInvert - określenie czy mamy używać invert czy swap jako metodę mutacji
+        MUTATION_CHANCE - szansa mutacji każdego osobnika
+        ratio - stosunek początkowej populacji NN a KRandom (1 to w pełni KRandom)
+        LIFE_EXPECTANCY - maksymalna długość życia osobnika
+    '''
+    def __init__(self, generations, islandNb, instance,r_cross,xmode,useInvert,MUTATION_CHANCE=0.06,ratio=0.2,LIFE_EXPECTANCY=50):
         self.generationNb = generations
         self.islandNb = islandNb
-        self.ISLANDS = []
-        self.bestPerm = []
-        self.Improvements = []
-        self.bestFC = sys.float_info.max
         self.instance = instance
         self.useInvert = useInvert
         self.xmode = xmode
         self.MUTATION_CHANCE = MUTATION_CHANCE
         self.LIFE_EXPECTANCY = LIFE_EXPECTANCY
 
-
+        #aktualna generacja
+        self.generation = 0
+        #zbiór wysp
+        self.ISLANDS = []
+        #najlepsza globalnie permutacja
+        self.bestPerm = []
+        self.bestFC = sys.float_info.max
+    
+        #przechowywane poprawy
+        self.Improvements = []
+        
+        #inicjuj wyspy
         for i in range(islandNb):
             self.ISLANDS.append(Island.Island(POPULATION_SIZE,self.instance, r_cross,self.LIFE_EXPECTANCY, "Wyspa "+str(i),ratio=ratio))
 
@@ -82,6 +98,7 @@ class GeneticAlgorithm():
 
         return newPopulation
 
+    #symuluj wszystkie wyspy przez podaną w konstruktorze ilość generacji
     def simulate(self,bestSolution=0,debug:boolean=False):
         for i in range(self.generationNb):
             #print(f"Gen {i}")
@@ -90,12 +107,23 @@ class GeneticAlgorithm():
             print(self.bestPerm)
         return self.Improvements
 
+    #wypisz najlepszy wynik
     def printBest(self):
         print(f"[{self.bestFC}] {self.bestPerm}")
 
+    #pobierz najlepszy wynik
     def GetGenBest(self):
         return gen_best
 
+    '''
+        Przeprowadź symulację generacji w następującym cyklu:
+            1. Zdarzenia losowe (migracja, wymieranie)
+            2. Wybór rodziców
+            3. Krzyżowanie
+            4. Nowa populacjia
+            5. Mutacja
+            6. Sortuj
+    '''
     def simulateGeneration(self,bestSolution=0,debug:boolean=False):
         #nowa generacja
         self.generation += 1
@@ -115,9 +143,7 @@ class GeneticAlgorithm():
             self.ISLANDS[hix].nukeRandom(0.8)
 
         #migracja pomiędzy dwoma wyspami
-
         x = random.random()
-
         if x < MIGRATION_CHANCE:
             r1 = random.randint(0,self.islandNb-1)
             r2 = random.randint(0,self.islandNb-1)
@@ -133,7 +159,7 @@ class GeneticAlgorithm():
                     self.ISLANDS[r2].population.append(m)
                 self.ISLANDS[r2].population.sort()
 
-
+        #głowny przebieg wyspy
         for ISLAND in self.ISLANDS:
             #wybór rodziców (ruletka)
             parents = ISLAND.select(PARENTS_SIZE)

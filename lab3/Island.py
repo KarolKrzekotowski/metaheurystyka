@@ -1,3 +1,5 @@
+#Plik definiuje klasę Island odpowiedzialną za zarządzanie populacją oraz pomocniczą klasę Member
+
 from random import randint,random
 from xmlrpc.client import boolean
 from Roulette import Roulette
@@ -26,30 +28,40 @@ class Member():
 
 
 class Island():
+    '''
+        Argumenty konstruktora:
+        populationSize - rozmiar populacji
+        instance - odniesienie do załadowanego pliku
+        r_cross - szansa krzyżowania rodziców
+        lifeExpectancy - maksymalna długość życia populacji
+        name - nazwa wyspy
+        ratio - stosunek członków NN a Krandom w generowanej populacji początkowej
+    '''
     def __init__(self, populationSize, instance,r_cross, lifeExpectancy,name="Unnamed",ratio=0.5):
-        #rozmiar populacji początkowej
         self.populationSize = populationSize
-        #populacja
-        self.population = []
         self.name = name
-        self.generation = 0
-        self.roulette = Roulette(self.populationSize)
         self.instance = instance
         self.lifeExpectancy = lifeExpectancy
         self.ratio = ratio
-        self.generateMembers(self.populationSize,True)
         self.r_cross = r_cross
 
+        #populacja
+        self.population = []
+        #generacja
+        self.generation = 0
+        #inicjuj ruletkę
+        self.roulette = Roulette(self.populationSize)
+        #wygeneruj populację początkową
+        self.generateMembers(self.populationSize,True)
         
-    def generateMembers(self, amount, useinvert):
 
+    def generateMembers(self, amount, useinvert):
         a1 = int(amount*self.ratio)
         a2 = amount - a1
         self.generateMembersKR(a1)
         self.generateMembersNN(a2,useinvert)
         
     #wygenereuj populację o danym rozmiarze
-    #(random? (na razie))
     def generateMembersKR(self, amount):
         for _ in range(amount):
             member,mfc = krandom.krandom(self.instance.size,self.instance.dis_mat,1)
@@ -102,9 +114,6 @@ class Island():
     def crossover(self,parents,xmode) -> [Member]:
         children = []
         r_cross = self.r_cross
-        # typ OX - order crossover
-        #zwraca tablice members
-
 
         parents = deepcopy(parents)
         parents: [Member,Member] = [[parents[i],parents[i+1]]for i in range(0,len(parents), 2)]
@@ -127,9 +136,6 @@ class Island():
                     c2 = OX(p[1].perm,p[0].perm,p1,p2)
                     c2 = Member(c2, fc(self.instance.dis_mat,c2), self.generation + self.lifeExpectancy)
                     children.append(c2)
-
-
-
 
                 elif xmode == 2:
 
@@ -154,10 +160,6 @@ class Island():
 
                     children.append(c1)
                     children.append(c2)
-
-
-
-
 
             else:
                 c1 = Member(p[0].perm,p[0].fc,self.generation + self.lifeExpectancy)

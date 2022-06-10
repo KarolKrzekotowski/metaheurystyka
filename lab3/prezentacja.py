@@ -12,5 +12,5 @@ spx = 3
 cx = 4
 island_nb = 2
 r_cross = 0.5
-ga = GeneticAlgorithm(int(gen_number), island_nb,instance,0.5,cx,invert,float(ratio))
+ga = GeneticAlgorithm(int(gen_number), island_nb,instance,0.5,cx,invert,ratio=float(ratio))
 imp = ga.simulate(int(best_PRD),True)
