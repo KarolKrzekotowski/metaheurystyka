@@ -10,6 +10,7 @@ instance,invert = (ReadData(file,True),False) if file[-4] == 'a' else (ReadData(
 ox = 1
 spx = 3
 cx = 4
+
 island_nb = 2
 r_cross = 0.5
 ga = GeneticAlgorithm(int(gen_number), island_nb,instance,0.5,cx,invert,ratio=float(ratio))

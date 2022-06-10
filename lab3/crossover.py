@@ -95,25 +95,64 @@ def SPX(p1,p2,point):
     return c
 
 # cycle crossover(CX)
-def CX( parent1, parent2 ):
-    cycles = [-1] * len(parent1)
-    cycle_no = 1
-    cyclestart = [-1] * len(parent1)
 
-    for pos in cyclestart:
-        while cycles[pos] < 0:
-            cycles[pos] = cycle_no
-            pos = parent1.index(parent2[pos])
-        cycle_no += 1
-    child1 = [parent1[i] if n % 2 else parent2[i] for i, n in enumerate(cycles)]
-    child2 = [parent2[i] if n % 2 else parent1[i] for i, n in enumerate(cycles)]
-    return child1,child2
+
+
+def indexOf(arr,x):
+    for a in range(0,arr.__len__()):
+        if arr[a] == x:
+            return a
+    return -1
+
+def fillNoneWithSwappedValue(arr1 ,arr2 ,final1 ,final2 ):
+    for a in range(0,arr1.__len__()):
+        if final1[a] == None:
+            final1[a] = arr2[a]
+        if final2[a] == None:
+            final2[a] = arr1[a]
+    return final1,final2
+def crossoverOperator( parent1, parent2 ):
+    offspring1 = [None] * parent1.__len__()
+    offspring2 = [None] * parent2.__len__()
+    size1 = 1
+    size2 = 1
+
+    initalSelected = parent1[0]
+    offspring1[0] = parent1[0]
+    latestUpdated2 = parent2[0]
+    check = 1
+
+    while size1 < parent1.__len__() or size2 < parent2.__len__():
+        if latestUpdated2 == initalSelected:
+            index2 = indexOf(parent2,latestUpdated2)
+            offspring2[index2] = parent2[index2]
+            ans1,ans2 = fillNoneWithSwappedValue(parent1, parent2, offspring1, offspring2)
+            offspring1 = ans1
+            offspring2 = ans2
+            size1 = parent1.__len__()
+            size2 = parent2.__len__()
+            check = 0
+        else:
+            index2 = indexOf(parent2,latestUpdated2)
+            offspring2[index2] = parent2[index2]
+            size2 += 1
+            index1 = indexOf(parent1,parent2[index2])
+            offspring1[index1] = parent1[index1]
+            size1 += 1
+            latestUpdated2 = parent2[index1]
+    if check:
+        index2 = indexOf(parent2, latestUpdated2)
+        offspring2[index2] = parent2[index2]
+
+    return offspring1,offspring2
+
 
 if __name__ == '__main__':
 
-    a = [1,2,3,4,5,6,7,8,9,10]
-    b = [4,3,1,2,8,7,10,5,6,9]
-    p = 3
-    q = 6
-    x ,y = PMX(a,b,p,q)
+    a = [1,2,3,4,5,6,7,8]
+    b = [8, 5, 2, 1, 3, 6, 4, 7]
+    ans,ans2 = crossoverOperator(a,b )
+
+
+
 

@@ -85,6 +85,7 @@ class GeneticAlgorithm():
         #dzieci
         pcLen = len(children)
         for i in range(pcNb):
+
             r = random.randint(0,pcLen-1)
             newPopulation.append(children[r])
 

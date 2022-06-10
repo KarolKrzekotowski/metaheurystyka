@@ -9,7 +9,7 @@ import nearestNeighbour
 
 from copy import copy, deepcopy
 from Paths import fc
-from crossover import OX,PMX, SPX, CX
+from crossover import OX,PMX, SPX, crossoverOperator
 
 #klasa definiuje członka populacji
 class Member():
@@ -153,13 +153,16 @@ class Island():
                     children.append(c2)
                 elif xmode == 4:
 
-                    c1,c2 = CX(p[0].perm,p[1].perm)
+
+
+                    c1, c2 = crossoverOperator(p[0].perm, p[1].perm)
 
                     c1 = Member(c1, fc(self.instance.dis_mat, c1), self.generation + self.lifeExpectancy)
                     c2 = Member(c2, fc(self.instance.dis_mat, c2), self.generation + self.lifeExpectancy)
 
                     children.append(c1)
                     children.append(c2)
+
 
             else:
                 c1 = Member(p[0].perm,p[0].fc,self.generation + self.lifeExpectancy)
