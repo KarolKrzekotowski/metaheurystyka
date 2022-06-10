@@ -26,8 +26,8 @@ def getFinal(Improvements):
 
 #Test wysp
 def test2():
-    REPEATS = 25
-    rng = range(100,1001,100)
+    REPEATS = 5
+    rng = range(1,5002,250)
 
     for f in tsp_files:
         instance = readData.ReadData('../lab2/TSP_Data/'+ f)
@@ -44,7 +44,7 @@ def test2():
 
                 print(f"Starting sims for {f}, islands={islands[i]}")
                 for j in range(REPEATS):
-                    ga = GeneticAlgorithm(int(2000/islands[i]),islands[i],instance,0.25,4,True,ratio=1.0)
+                    ga = GeneticAlgorithm(int(5002/islands[i]),islands[i],instance,0.25,4,True,ratio=1.0)
                     res = ga.simulate()
 
                     kix = 0
@@ -66,7 +66,7 @@ def test2():
 #test wieku
 def test5():
     REPEATS = 10
-    rng = range(20,101,20)
+    rng = range(10,51,10)
     with open(f"test5",'w') as data:
         data.write("inst;")
         for awfin in rng:
@@ -105,12 +105,13 @@ def test5():
 tc_files = ['gr24.tsp','gr48.tsp','berlin52.tsp','pr107.tsp','gr120.tsp','ch150.tsp']
 tc_files2 = ['st70.tsp','pr264.tsp','lin318.tsp']
 tc_files3 = ['ts225.tsp']
+tc_files4 = ['p654.tsp']
 
 def testTC():
     REPEATS = 10
-    with open(f"testTC3",'w') as data:
+    with open(f"testTC4",'w') as data:
 
-        for f in tc_files3:
+        for f in tc_files4:
             print(f"Starting sims for {f}")
             instance = readData.ReadData('../lab1/TSP_Data/'+ f)
             times = []
@@ -131,5 +132,5 @@ def testTC():
                 data.write(";")
             
             data.write("\n")
-test5()
+test2()
 
