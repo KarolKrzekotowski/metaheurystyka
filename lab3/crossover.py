@@ -123,9 +123,13 @@ def crossoverOperator( parent1, parent2 ):
     check = 1
 
     while size1 < parent1.__len__() or size2 < parent2.__len__():
+        # jeśli ostatnio zmieniony  to wartość inicjująca - koniec działania, cykl ma pętle
         if latestUpdated2 == initalSelected:
+            # index rodzica2 gdzie wystepuje lastupdated2
             index2 = indexOf(parent2,latestUpdated2)
+            # dziecko2 od index2 przyjmuje wartość rddzica2  w tym miejscu
             offspring2[index2] = parent2[index2]
+            #wypełniamy nieodwiedzone miejsca liczbami z rodziców
             ans1,ans2 = fillNoneWithSwappedValue(parent1, parent2, offspring1, offspring2)
             offspring1 = ans1
             offspring2 = ans2
@@ -133,12 +137,17 @@ def crossoverOperator( parent1, parent2 ):
             size2 = parent2.__len__()
             check = 0
         else:
+            # index rodzica2, gdzie występuje wartość lastupdated2
             index2 = indexOf(parent2,latestUpdated2)
+            #dziecko2 od indeksu2 przyjmuje wartość rodzica w tym indexie, zwiększamy rozmiar liczb w dziecku2
             offspring2[index2] = parent2[index2]
             size2 += 1
+            #index1 to indeks gdzie w rodzicu1 znajduje się wartość dodana do listy dziecko2
             index1 = indexOf(parent1,parent2[index2])
+            # zapisujemy tę wartość do dziecko1 w tym indexie, zwiększamy rozmiar liczb w dziecku1
             offspring1[index1] = parent1[index1]
             size1 += 1
+            # lastUpdated2 przyjmuje wartość rodzica2  w indeks1
             latestUpdated2 = parent2[index1]
     if check:
         index2 = indexOf(parent2, latestUpdated2)
